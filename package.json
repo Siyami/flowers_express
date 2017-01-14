@@ -1,0 +1,21 @@
+{
+  "name": "flowers_express",
+  "version": "1.0.0",
+  "description": "Online Flower Shop",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Siyami/flowers_express.git"
+  },
+  "author": "Siyami Avci <siyamiavci@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Siyami/flowers_express/issues"
+  },
+  "homepage": "https://github.com/Siyami/flowers_express#readme"
+}
