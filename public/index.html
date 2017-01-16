@@ -5,17 +5,20 @@
     <title>The best flowers</title>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/master.css">
+    <!-- <link rel="stylesheet" href="css/master.css"> -->
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <!--script for using jQuery-->
-    <script defer src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+    <script defer
+    src="https://code.jquery.com/jquery-3.1.1.min.js"
+    integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+    crossorigin="anonymous"></script>
     <!--script for using Bootstrap-->
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
     <script defer src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
-    
+
     <!--script for main.js file-->
-    <script defer src="/js/main.js"></script>
+    <script defer src="js/index.js"></script>
   </head>
 <body>
   <header>
@@ -52,93 +55,9 @@
   </header>
   <main>
     <div class="container">
-      <div class="card-deck">
-       <div class="card">
-         <img class="card-img-top" src="http://www.floristone.com/flowers/thumbnails/AVB_t1.jpg" alt="Card image cap">
-         <div class="card-block">
-           <h4 class="card-title">Card title</h4>
-           <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-         </div>
-         <div class="card-footer">
-           <small class="text-muted">Last updated 3 mins ago</small>
-         </div>
-       </div>
-       <div class="card">
-         <img class="card-img-top" src="http://www.floristone.com/flowers/thumbnails/B10-4355_t1.jpg" alt="Card image cap">
-         <div class="card-block">
-           <h4 class="card-title">Card title</h4>
-           <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-         </div>
-         <div class="card-footer">
-           <small class="text-muted">Last updated 3 mins ago</small>
-         </div>
-       </div>
-       <div class="card">
-         <img class="card-img-top" src="http://www.floristone.com/flowers/thumbnails/B10-4368_t1.jpg" alt="Card image cap">
-         <div class="card-block">
-           <h4 class="card-title">Card title</h4>
-           <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-         </div>
-         <div class="card-footer">
-           <small class="text-muted">Last updated 3 mins ago</small>
-         </div>
-       </div>
-       <div class="card">
-         <img class="card-img-top" src="http://www.floristone.com/flowers/thumbnails/B10-4787_t1.jpg" alt="Card image cap">
-         <div class="card-block">
-           <h4 class="card-title">Card title</h4>
-           <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-         </div>
-         <div class="card-footer">
-           <small class="text-muted">Last updated 3 mins ago</small>
-         </div>
-       </div>
-     </div>
+      <div id="flowers" class="card-deck">
+      </div>
    </div>
-   <div class="container">
-     <div class="card-deck">
-      <a href="" class="card">
-        <img class="card-img-top" src="http://www.floristone.com/flowers/thumbnails/B12-4421_t1.jpg" alt="Card image cap">
-        <div class="card-block">
-          <h4 class="card-title">Card title</h4>
-          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        </div>
-        <div class="card-footer">
-          <small class="text-muted">Last updated 3 mins ago</small>
-        </div>
-      </a>
-      <div class="card">
-        <img class="card-img-top" src="http://www.floristone.com/flowers/thumbnails/B11-3601_t1.jpg" alt="Card image cap">
-        <div class="card-block">
-          <h4 class="card-title">Card title</h4>
-          <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-        </div>
-        <div class="card-footer">
-          <small class="text-muted">Last updated 3 mins ago</small>
-        </div>
-      </div>
-      <div class="card">
-        <img class="card-img-top" src="http://www.floristone.com/flowers/thumbnails/B11-3602_t1.jpg" alt="Card image cap">
-        <div class="card-block">
-          <h4 class="card-title">Card title</h4>
-          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-        </div>
-        <div class="card-footer">
-          <small class="text-muted">Last updated 3 mins ago</small>
-        </div>
-      </div>
-      <div class="card">
-        <img class="card-img-top" src="http://www.floristone.com/flowers/thumbnails/B13-4834_t1.jpg" alt="Card image cap">
-        <div class="card-block">
-          <h4 class="card-title">Card title</h4>
-          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-        </div>
-        <div class="card-footer">
-          <small class="text-muted">Last updated 3 mins ago</small>
-        </div>
-      </div>
-    </div>
-  </div>
   </main>
     <footer class="page-footer">
       <nav class="navbar fixed-bottom navbar-light bg-faded">
