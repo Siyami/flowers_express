@@ -13,7 +13,6 @@
             'data-tooltip': flower.description
           })
           .tooltip();
-
         const $img = $('<img>')
           .addClass('card-img-top')
           .attr({ src: flower.picture_url_s, alt: flower.name });
