@@ -8,12 +8,19 @@ exports.up = function(knex) {
       .notNullable()
       .onDelete('CASCADE')
       .index();
+    table.string('price').notNullable().defaultTo('');
+    table.integer('customer_id')
+      .references('customers.id')
+      .notNullable()
+      .onDelete('CASCADE')
+      .index();
     table.integer('order_id')
       .references('orders.id')
       .notNullable()
       .onDelete('CASCADE')
       .index();
-    table.string('daleveryDate')..notNullable().defaultTo('');
+    table.string('total').defaultTo(0);
+    table.string('deliveryDate').notNullable().defaultTo('');
     table.timestamps(true, true);
   });
 };
