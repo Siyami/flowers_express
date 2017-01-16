@@ -53,7 +53,7 @@ router.post('/customers', (req, res, next) => {
       const customer = customers[0];
 
       const claim = {
-        user_id: customer.id
+        customer_id: customer.id
       };
       const token = jwt.sign(claim, process.env.JWT_KEY, {
         expiresIn: '7 days' // Adds an expiration field to the payload
