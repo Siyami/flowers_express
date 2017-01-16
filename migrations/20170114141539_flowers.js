@@ -20,7 +20,7 @@ exports.up = function(knex) {
     table.boolean('new_baby').defaultTo(0);
     table.boolean('thank_you').defaultTo(0);
     table.boolean('sympathy').defaultTo(0);
-    table.string('Category').notNullable().defaultTo('');
+    table.string('category').notNullable().defaultTo('');
     table.timestamps(true, true);
   });
 };
