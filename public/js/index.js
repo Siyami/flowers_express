@@ -19,7 +19,7 @@
           .attr({ src: flower.picture_url_s, alt: flower.name });
         const $cardText = $('<div>')
           .addClass('card-block');
-        const $name = $('<h5>')
+        const $name = $('<h4>')
           .addClass('card-title text-center')
           .text(flower.name);
         const $price = $('<h5>')
@@ -28,7 +28,7 @@
         const $cardFooter = $('<div>')
           .addClass('card-footer');
         const $footerText = $('<small>')
-          .addClass('text-muted')
+          .addClass('text-muted text-center')
           .text('Click for details');
 
         $name.appendTo($cardText);
@@ -36,7 +36,6 @@
         $footerText.appendTo($cardFooter);
         $anchor.append($img, $cardText, $cardFooter);
         $flowers.append($anchor);
-
       }
     })
     .fail(() => {
