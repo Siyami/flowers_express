@@ -3,9 +3,24 @@
   "version": "1.0.0",
   "description": "Online Flower Shop",
   "main": "index.js",
-  "dependencies": {},
-  "devDependencies": {},
+  "dependencies": {
+    "bcrypt-as-promised": "^1.1.0",
+    "body-parser": "^1.15.2",
+    "boom": "^4.2.0",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.14.0",
+    "humps": "^2.0.0",
+    "jsonwebtoken": "^7.2.1",
+    "knex": "^0.12.6",
+    "morgan": "^1.7.0",
+    "pg": "^6.1.2"
+  },
+  "devDependencies": {
+    "dotenv": "^4.0.0",
+    "nodemon": "^1.11.0"
+  },
   "scripts": {
+    "knex": "knex",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
