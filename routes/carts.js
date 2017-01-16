@@ -21,9 +21,10 @@ const authorize = function(req, res, next) {
 };
 
 router.get('/cart', (req, res, next) => {
+  console.log(req.claim);
   knex('carts')
     .innerJoin('flowers', 'flowers.id', 'carts.flower_id')
-    .where('carts.customer_id', req.claim.userId)
+    .where('carts.customer_id', req.claim.customer_id)
     .orderBy('id', 'ASC')
     .then((rows) => {
       const cart = rows;
@@ -49,7 +50,7 @@ router.post('/cart', (req, res, next) => {
 
   const insertFlower = { flower_id, price, customer_id };
   console.log(insertFlower);
-  knex('cart')
+  knex('carts')
     .insert((insertFlower), '*')
     .then((flower) => {
       res.send(flower[0]);

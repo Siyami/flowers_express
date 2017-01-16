@@ -14,11 +14,6 @@ exports.up = function(knex) {
       .notNullable()
       .onDelete('CASCADE')
       .index();
-    table.integer('order_id')
-      .references('orders.id')
-      .notNullable()
-      .onDelete('CASCADE')
-      .index();
     table.string('total').defaultTo(0);
     table.string('deliveryDate').notNullable().defaultTo('');
     table.timestamps(true, true);
