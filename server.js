@@ -14,6 +14,10 @@ const cookieParser = require('cookie-parser');
 
 const customers = require('./routes/customers');
 const token = require('./routes/token');
+const carts = require('./routes/carts');
+const flowers = require('./routes/flowers');
+const recipients = require('./routes/recipients');
+const orders = require('./routes/orders');
 
 
 const app = express();
@@ -28,6 +32,10 @@ app.use(express.static(path.join('public')));
 
 app.use(customers);
 app.use(token);
+app.use(flowers);
+app.use(recipients);
+app.use(orders);
+app.use(carts);
 
 
 app.use((_req, res) => {

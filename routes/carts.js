@@ -20,13 +20,13 @@ const authorize = function(req, res, next) {
   });
 };
 
-router.get('/cart', authorize, (req, res, next) => {
+router.get('/cart', (req, res, next) => {
   knex('carts')
     .innerJoin('flowers', 'flowers.id', 'carts.flower_id')
     .where('carts.customer_id', req.claim.userId)
     .orderBy('id', 'ASC')
     .then((rows) => {
-      const cart = camelizeKeys(rows);
+      const cart = rows;
 
       res.send(cart);
     })
@@ -38,9 +38,9 @@ router.get('/cart', authorize, (req, res, next) => {
 router.post('/cart', (req, res, next) => {
   const flower_id = req.body.id;
   const price = req.body.price;
-  const customer_id = req.claim.userId;
+  const customer_id = req.body.customer_id;
 
-  if (!flower_id || !title.trim()) {
+  if (!flower_id || !flower_id.trim()) {
     return next(boom.create(400, 'Flower ID must be exist'));
   }
   if (!price || !price.trim()) {
@@ -48,9 +48,9 @@ router.post('/cart', (req, res, next) => {
   }
 
   const insertFlower = { flower_id, price, customer_id };
-
+  console.log(insertFlower);
   knex('cart')
-    .insert(insertFlower), '*')
+    .insert((insertFlower), '*')
     .then((flower) => {
       res.send(flower[0]);
     })
