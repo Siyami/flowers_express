@@ -41,14 +41,21 @@ router.post('/recipients', (req, res, next) => {
 
         err.status = 400;
 
-        throw err; // if error goes all the way down to .catch, skips what's between
+        throw err;
       }
 
       return knex('recipients')
         .insert({
           customer_id: req.body.customer_id,
-          title: req.body.title,
-          likes: req.body.likes
+          name: req.body.name,
+          institution: req.body.institution,
+          address1: req.body.address1,
+          address2: req.body.address2,
+          city: req.body.city,
+          state: req.body.state,
+          country: req.body.country,
+          phone: req.body.phone,
+          zipcode: req.body.zipcode,
         }, '*');
     })
     .then((recipients) => {
@@ -58,6 +65,5 @@ router.post('/recipients', (req, res, next) => {
       next(err);
     });
 });
-
 
 module.exports = router;

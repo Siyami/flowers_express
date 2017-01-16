@@ -13,7 +13,7 @@ exports.up = function(knex) {
     table.string('state').notNullable().defaultTo('');
     table.string('country').notNullable().defaultTo('');
     table.string('phone').notNullable().defaultTo('');
-    table.integer('zipcode').notNullable();
+    table.string('zipcode').notNullable().default('');
     table.timestamps(true, true);
   });
 };

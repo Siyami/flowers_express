@@ -5,6 +5,7 @@ exports.seed = function(knex) {
   return knex('recipients').del()
     .then(() => {
       return knex('recipients').insert([{
+        customer_id: 1,
         name: 'paul',
         institution: '',
         address1: '',

@@ -18,12 +18,12 @@ exports.up = function(knex) {
       .notNullable()
       .onDelete('CASCADE')
       .index();
-      table.integer('customer_id')
-        .references('customers.id')
-        .notNullable()
-        .onDelete('CASCADE')
-        .index();
-    table.string('orderIP')..notNullable().defaultTo('0.0.0.0');
+    table.integer('customer_id')
+      .references('customers.id')
+      .notNullable()
+      .onDelete('CASCADE')
+      .index();
+    table.string('orderIP').notNullable().defaultTo('0');
     table.timestamps(true, true);
   });
 };
