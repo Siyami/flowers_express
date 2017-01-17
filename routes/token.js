@@ -57,13 +57,12 @@ router.post('/token', (req, res, next) => {
 });
 
 router.get('/token', (req, res) => {
-  jwt.verify(req.cookies.token, process.env.JWT_KEY, (err, _payload) => {
+  jwt.verify(req.cookies.token, process.env.JWT_KEY, (err, payload) => {
     if (err) {
       return res.send(false);
     }
-    
-    res.set(_payload.customerId);
-    res.send(true);
+
+    res.send({ id: payload.customerId });
 
   });
 });

@@ -15,7 +15,6 @@
       src: flower.picture_url_l,
       alt: flower.name
     });
-    // $('#addToCart').attr('href', `/cart.html?id=${flower.id}`);
   };
 
   const attachListener = (flower) => {
@@ -51,8 +50,8 @@
             $('#modalLogIn').modal();
             return console.error('ERRROOOOOORRRR!!!!!!');
           }
-          console.log();
-
+          console.log(isLoggedIn.id);
+          postToCart(isLoggedIn.id)
         })
         .fail(() => {
           console.error('Here is problem with token');
