@@ -11,40 +11,43 @@
     $('#dimensions').text(flower.dimensions);
     $('#description').text(flower.description);
     $('#price').text(flower.price);
-    $('#big_image').attr({ src: flower.picture_url_l, alt: flower.name });
+    $('#big_image').attr({
+      src: flower.picture_url_l,
+      alt: flower.name
+    });
     // $('#addToCart').attr('href', `/cart.html?id=${flower.id}`);
   };
 
-    const attachListener = (flower) => {
-// <============ function for adding to cart ==============>
-      const postToCart = (number) => {
-        const postReq = {
-          contentType: 'application/json',
-          data: JSON.stringify({
-            id: flower.id,
-            price: flower.price,
-            customer_id: number
-          }),
-          type: 'POST',
-          url: `/cart`
-        };
-        $.ajax(postReq)
+  const attachListener = (flower) => {
+    // <============ function for adding to cart ==============>
+    const postToCart = (number) => {
+      const postReq = {
+        contentType: 'application/json',
+        data: JSON.stringify({
+          id: flower.id,
+          price: flower.price,
+          customer_id: number
+        }),
+        type: 'POST',
+        url: `/cart`
+      };
+      $.ajax(postReq)
         .done(() => {
           window.location.href = '/cart.html';
         })
         .fail(() => {
           console.error('Error for posting flower to cart');
         });
-      };
-// <============ Event listener for button Add To Cart ==============>
-      $('#addToCart').on('click', (event) => {
-        event.preventDefault();
-// <============ Check validation for sigh in or sign out ==============>
+    };
+    // <============ Event listener for button Add To Cart ==============>
+    $('#addToCart').on('click', (event) => {
+      event.preventDefault();
+      // <============ Check validation for sigh in or sign out ==============>
       $.getJSON('/token')
         .done((isLoggedIn) => {
           console.log(isLoggedIn);
           if (!isLoggedIn) {
-// <============ Calling modal for Sign In  ==============>
+            // <============ Calling modal for Sign In  ==============>
             $('#modalLogIn').modal();
             return console.error('ERRROOOOOORRRR!!!!!!');
           }
@@ -55,7 +58,7 @@
           console.error('Here is problem with token');
         });
     });
-// <============ Event listener for button Log In ==============>
+    // <============ Event listener for button Log In ==============>
     $('#buttonLogIn').on('click', (event) => {
       event.preventDefault();
       const email = $('#emailLogIn').val().trim();
@@ -63,27 +66,30 @@
 
       const postReqToken = {
         contentType: 'application/json',
-        data: JSON.stringify({ email, password }),
+        data: JSON.stringify({
+          email, password
+        }),
         type: 'POST',
         url: `/token`
       };
       $.ajax(postReqToken)
         .done((data) => {
-         console.log(data);
-        postToCart(data.id);
+          console.log(data);
+          postToCart(data.id);
         })
         .fail((err) => {
-         return console.log('Error :' + err.responseText + '  Error status: ' + err.status);
+          return console.log('Error :' + err.responseText +
+            '  Error status: ' + err.status);
         });
     });
 
-// <============ Event listener for button Sign Up ==============>
+    // <============ Event listener for button Sign Up ==============>
     $('#buttonSignUp').on('click', (event) => {
       event.preventDefault();
 
     });
 
-// <============ Event listener for button Sign Out ==============>
+    // <============ Event listener for button Sign Out ==============>
     $('#singOutButton').on('click', (event) => {
       event.preventDefault();
 
@@ -94,15 +100,16 @@
       };
       $.ajax(deleteToken)
         .done((data) => {
-         console.log(data);
+          console.log(data);
         })
         .fail((err) => {
-         console.log('Error :' + err.responseText + '  Error status: ' + err.status);
+          console.log('Error :' + err.responseText +
+            '  Error status: ' + err.status);
         });
 
     });
   };
-// <============ Request for loading page ==============>
+  // <============ Request for loading page ==============>
   $.getJSON(`/flowers/${flowerId}`)
     .done((flower) => {
       $.ajax('/login.html')
@@ -116,4 +123,4 @@
     .fail(() => {
       // bootstrap.toast('Unable to retrieve book', 3000);
     });
-  })();
+})();
