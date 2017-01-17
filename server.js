@@ -24,7 +24,7 @@ const app = express();
 
 app.disable('x-powered-by');
 
-app.use(morgan('short'));
+app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(cookieParser());
 
@@ -42,14 +42,15 @@ app.use((_req, res) => {
   res.sendStatus(404);
 });
 
+// eslint-disable-next-line max-params
 app.use((err, _req, res, _next) => {
-  if (err.status) {
-    return res
-      .status(err.status)
+  if (err.output && err.output.statusCode) {
+    return res.status(err.output.statusCode)
       .set('Content-Type', 'text/plain')
       .send(err.message);
   }
 
+  // eslint-disable-next-line no-console
   console.error(err.stack);
   res.sendStatus(500);
 });
