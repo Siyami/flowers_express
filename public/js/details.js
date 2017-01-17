@@ -15,60 +15,51 @@
     // $('#addToCart').attr('href', `/cart.html?id=${flower.id}`);
   };
 
-
     const attachListener = (flower) => {
+// <============ function for adding to cart ==============>
+      const postToCart = (number) => {
+        const postReq = {
+          contentType: 'application/json',
+          data: JSON.stringify({
+            id: flower.id,
+            price: flower.price,
+            customer_id: number
+          }),
+          type: 'POST',
+          url: `/cart`
+        };
+        $.ajax(postReq)
+        .done(() => {
+          window.location.href = '/cart.html';
+        })
+        .fail(() => {
+          console.error('Error for posting flower to cart');
+        });
+      };
+// <============ Event listener for button Add To Cart ==============>
       $('#addToCart').on('click', (event) => {
         event.preventDefault();
 // <============ Check validation for sigh in or sign out ==============>
       $.getJSON('/token')
         .done((isLoggedIn) => {
+          console.log(isLoggedIn);
           if (!isLoggedIn) {
-            $.ajax('/login.html')
-              .done((html) => {
-                $(html).modal();
-              })
-              .fail((err) => {
-                console.error('Modal is not attached error:' + err);
-              });
+// <============ Calling modal for Sign In  ==============>
+            $('#modalLogIn').modal();
             return console.error('ERRROOOOOORRRR!!!!!!');
           }
-// <============ POST request for creating row on carts table ==============>
+          console.log();
 
-          const postReq = {
-            contentType: 'application/json',
-            data: JSON.stringify({
-              id: flower.id,
-              price: flower.price,
-              customer_id: 1
-            }),
-            type: 'POST',
-            url: `/cart`
-          };
-          $.ajax(postReq)
-          .done(() => {
-            console.log('posted to cart' + postReq);
-            // window.location.href = '/cart.html';
-          })
-          .fail(() => {
-            console.error('Error for posting flower to cart');
-            // Materialize.toast('Unable to delete book', 3000);
-          });
         })
         .fail(() => {
           console.error('Here is problem with token');
         });
     });
-
+// <============ Event listener for button Log In ==============>
     $('#buttonLogIn').on('click', (event) => {
       event.preventDefault();
       const email = $('#emailLogIn').val().trim();
       const password = $('#passLogIn').val();
-      if (!email) {
-
-      }
-      if (!password) {
-
-      }
 
       const postReqToken = {
         contentType: 'application/json',
@@ -79,38 +70,20 @@
       $.ajax(postReqToken)
         .done((data) => {
          console.log(data);
+        postToCart(data.id);
         })
         .fail((err) => {
-         console.log('Error :' + err.responseText + '  Error status: ' + err.status);
+         return console.log('Error :' + err.responseText + '  Error status: ' + err.status);
         });
     });
 
+// <============ Event listener for button Sign Up ==============>
     $('#buttonSignUp').on('click', (event) => {
       event.preventDefault();
 
-      const email = $('#emailLogIn').val().trim();
-      const password = $('#passLogIn').val();
-      if (!email) {
-
-      }
-      if (!password) {
-
-      }
-
-      const postReqToken = {
-        contentType: 'application/json',
-        data: JSON.stringify({ email, password }),
-        type: 'POST',
-        url: `/token`
-      };
-      $.ajax(postReqToken)
-        .done((data) => {
-         console.log(data);
-        })
-        .fail((err) => {
-         console.log('Error :' + err.responseText + '  Error status: ' + err.status);
-        });
     });
+
+// <============ Event listener for button Sign Out ==============>
     $('#singOutButton').on('click', (event) => {
       event.preventDefault();
 
@@ -129,11 +102,16 @@
 
     });
   };
-
+// <============ Request for loading page ==============>
   $.getJSON(`/flowers/${flowerId}`)
     .done((flower) => {
+      $.ajax('/login.html')
+        .done((html) => {
+          $(html).appendTo('main');
+
+          attachListener(flower);
+        })
       detailsflower(flower);
-      attachListener(flower);
     })
     .fail(() => {
       // bootstrap.toast('Unable to retrieve book', 3000);

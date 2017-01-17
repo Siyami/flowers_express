@@ -61,8 +61,10 @@ router.get('/token', (req, res) => {
     if (err) {
       return res.send(false);
     }
-
+    
+    res.set(_payload.customerId);
     res.send(true);
+
   });
 });
 
