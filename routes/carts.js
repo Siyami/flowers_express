@@ -41,7 +41,7 @@ router.post('/cart', (req, res, next) => {
   const price = req.body.price;
   const customer_id = req.body.customer_id;
 
-  if (!flower_id || !flower_id.trim()) {
+  if (!flower_id) {
     return next(boom.create(400, 'Flower ID must be exist'));
   }
   if (!price || !price.trim()) {
