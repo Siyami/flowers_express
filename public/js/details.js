@@ -23,7 +23,13 @@
       $.getJSON('/token')
         .done((isLoggedIn) => {
           if (!isLoggedIn) {
-            $('#modalLogIn').modal();
+            $.ajax('/login.html')
+              .done((html) => {
+                $(html).modal();
+              })
+              .fail((err) => {
+                console.error('Modal is not attached error:' + err);
+              });
             return console.error('ERRROOOOOORRRR!!!!!!');
           }
 // <============ POST request for creating row on carts table ==============>
@@ -77,6 +83,50 @@
         .fail((err) => {
          console.log('Error :' + err.responseText + '  Error status: ' + err.status);
         });
+    });
+
+    $('#buttonSignUp').on('click', (event) => {
+      event.preventDefault();
+
+      const email = $('#emailLogIn').val().trim();
+      const password = $('#passLogIn').val();
+      if (!email) {
+
+      }
+      if (!password) {
+
+      }
+
+      const postReqToken = {
+        contentType: 'application/json',
+        data: JSON.stringify({ email, password }),
+        type: 'POST',
+        url: `/token`
+      };
+      $.ajax(postReqToken)
+        .done((data) => {
+         console.log(data);
+        })
+        .fail((err) => {
+         console.log('Error :' + err.responseText + '  Error status: ' + err.status);
+        });
+    });
+    $('#singOutButton').on('click', (event) => {
+      event.preventDefault();
+
+      const deleteToken = {
+        contentType: 'application/json',
+        type: 'DELETE',
+        url: `/token`
+      };
+      $.ajax(deleteToken)
+        .done((data) => {
+         console.log(data);
+        })
+        .fail((err) => {
+         console.log('Error :' + err.responseText + '  Error status: ' + err.status);
+        });
+
     });
   };
 

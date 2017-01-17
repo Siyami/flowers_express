@@ -16,7 +16,7 @@ router.post('/token', (req, res, next) => {
   if (!email || !email.trim()) {
     return next(boom.create(400, 'Email must not be blank'));
   }
-  if (!password || password < 8) {
+  if (!password || !password.trim()) {
     return next(boom.create(400, 'Password must not be blank'));
   }
 
@@ -33,7 +33,7 @@ router.post('/token', (req, res, next) => {
       return bcrypt.compare(password, customer.hashedPassword);
     })
     .then(() => {
-      const claim = { customer_id: customer.id };
+      const claim = { customerId: customer.id };
       const token = jwt.sign(claim, process.env.JWT_KEY, {
         expiresIn: '7 days'
       });
