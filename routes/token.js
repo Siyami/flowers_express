@@ -5,17 +5,23 @@ const bcrypt = require('bcrypt-as-promised');
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const knex = require('../knex');
-const {
-  camelizeKeys
-} = require('humps');
+const { camelizeKeys } = require('humps');
 
 const router = express.Router();
 
 router.post('/token', (req, res, next) => {
   let customer;
+  const { email, password } = req.body;
+
+  if (!email || !email.trim()) {
+    return next(boom.create(400, 'Email must not be blank'));
+  }
+  if (!password || password < 8) {
+    return next(boom.create(400, 'Password must not be blank'));
+  }
 
   knex('customers')
-    .where('email', req.body.email)
+    .where('email', email)
     .first()
     .then((row) => {
       if (!row) {
@@ -24,12 +30,10 @@ router.post('/token', (req, res, next) => {
 
       customer = camelizeKeys(row);
 
-      return bcrypt.compare(req.body.password, customer.hashedPassword);
+      return bcrypt.compare(password, customer.hashedPassword);
     })
     .then(() => {
-      const claim = {
-        customerId: customer.id
-      };
+      const claim = { customer_id: customer.id };
       const token = jwt.sign(claim, process.env.JWT_KEY, {
         expiresIn: '7 days'
       });

@@ -2,10 +2,9 @@
   'use strict';
 
   const flowerId = (window.location.search).slice(4);
-console.log(flowerId);
-  // if (!flowerId) {
-  //   window.location.href = '/index.html';
-  // }
+  if (!flowerId) {
+    window.location.href = '/index.html';
+  }
 
   const detailsflower = function(flower) {
     $('#name').text(flower.name);
@@ -18,53 +17,66 @@ console.log(flowerId);
 
 
     const attachListener = (flower) => {
-      console.log('before ev list');
       $('#addToCart').on('click', (event) => {
         event.preventDefault();
-        console.log('before token');
 // <============ Check validation for sigh in or sign out ==============>
       $.getJSON('/token')
         .done((isLoggedIn) => {
           if (!isLoggedIn) {
-            console.log(isLoggedIn);
-            throw console.error('ERROR!!!!!!!!!');;
-            $('#exampleModal').modal();
+            $('#modalLogIn').modal();
+            return console.error('ERRROOOOOORRRR!!!!!!');
           }
-        })
-        .fail(($xhr) => {
-          console.error('Here is problem with token');
-        });
-
 // <============ POST request for creating row on carts table ==============>
-        const postReq = {
-          contentType: 'application/json',
-          data: JSON.stringify({
-            id: flower.id,
-            price: flower.price,
-            customer_id: 1
-          }),
-          type: 'POST',
-          url: `/cart`
-        };
 
-        $.ajax(postReq)
+          const postReq = {
+            contentType: 'application/json',
+            data: JSON.stringify({
+              id: flower.id,
+              price: flower.price,
+              customer_id: 1
+            }),
+            type: 'POST',
+            url: `/cart`
+          };
+          $.ajax(postReq)
           .done(() => {
-            console.log(postReq);
+            console.log('posted to cart' + postReq);
             // window.location.href = '/cart.html';
           })
           .fail(() => {
             console.error('Error for posting flower to cart');
             // Materialize.toast('Unable to delete book', 3000);
           });
-// <============ Check validation for sigh in or sign out ==============>
+        })
+        .fail(() => {
+          console.error('Here is problem with token');
+        });
+    });
 
-      // $('#exampleModal').on('show.bs.modal', function (event) {
-      //   var button = $(event.relatedTarget)
-      //   var customer = button.data('whatever')
-      //   var modal = $(this)
-      //   modal.find('.modal-title').text('New message to ' + customer)
-      //   modal.find('.modal-body input').val(customer)
-      // });
+    $('#buttonLogIn').on('click', (event) => {
+      event.preventDefault();
+      const email = $('#emailLogIn').val().trim();
+      const password = $('#passLogIn').val();
+      if (!email) {
+
+      }
+      if (!password) {
+
+      }
+
+      const postReqToken = {
+        contentType: 'application/json',
+        data: JSON.stringify({ email, password }),
+        type: 'POST',
+        url: `/token`
+      };
+      $.ajax(postReqToken)
+        .done((data) => {
+         console.log(data);
+        })
+        .fail((err) => {
+         console.log('Error :' + err.responseText + '  Error status: ' + err.status);
+        });
     });
   };
 
