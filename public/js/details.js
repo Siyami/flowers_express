@@ -98,10 +98,11 @@
         const zipcode = $('#zipcodeSignUp').val().trim();
 
         if (!first_name) {
-          $(".alert").alert();
+          // alert('Please enter first name');
+          // signUp();
         }
         if (!last_name) {
-          // $('#lastNameSignUp').prop('indeterminate', true);
+
         }
         if (!email) {
 
@@ -155,12 +156,32 @@
 
         $.ajax(postCustomer)
           .done(() => {
-            window.location.href = '/index.html';
+            // log customer in as soon as he registers
+            const postToken = {
+              contentType: 'application/json',
+              data: JSON.stringify({
+                email,
+                password
+              }),
+              type: 'POST',
+              url: '/token'
+            };
+            $.ajax(postToken)
+              .done(() => {
+                $('#signUpModal').modal('hide');
+                // window.location.href = '/index.html';
+              })
+              .fail((err) => {
+                console.log('Error :' + err.responseText +
+                  '  Error status: ' + err.status);
+              });
           })
           .fail((err) => {
             console.log('Error :' + err.responseText +
               '  Error status: ' + err.status);
           });
+
+
       })
     };
 
