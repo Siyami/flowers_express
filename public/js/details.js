@@ -82,12 +82,8 @@
         });
     });
 
-    // <============ Event listener for button Sign Up ==============>
-    $('#buttonSignUp').on('click', (event) => {
-      event.preventDefault();
-      $('#modalLogIn').modal('hide');
-      $('#signUpModal').modal();
-
+    // <============ Function for Signing Up ==============>
+    const signUp = function() {
       $('#btnSignUp').on('click', (event) => {
         const first_name = $('#firstNameSignUp').val().trim();
         const last_name = $('#firstNameSignUp').val().trim();
@@ -102,8 +98,7 @@
         const zipcode = $('#zipcodeSignUp').val().trim();
 
         if (!first_name) {
-          // return Materialize.toast('First name must not be blank',
-          //   3000);
+          $(".alert").alert();
         }
         if (!last_name) {
           // $('#lastNameSignUp').prop('indeterminate', true);
@@ -167,6 +162,14 @@
               '  Error status: ' + err.status);
           });
       })
+    };
+
+    // <============ Event listener for button Sign Up ==============>
+    $('#buttonRegister').on('click', (event) => {
+      event.preventDefault();
+      $('#modalLogIn').modal('hide');
+      $('#signUpModal').modal();
+      signUp();
     });
 
     // <============ Event listener for button Sign Out ==============>
