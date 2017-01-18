@@ -1,8 +1,19 @@
 (function() {
   'use strict';
 
-const renderCartItems = (data) => {
 
+
+  const sumTotal = (priceItem) => {
+    subtotal += parseFloat(priceItem);
+    $('#subtotal').text(`$${subtotal.toFixed(2)}`);
+    tax = (subtotal * 9.6) / 100;
+    $('#tax').text(`$${tax.toFixed(2)}`);
+    total = subtotal + tax;
+    $('#total').text(`$${total.toFixed(2)}`);
+  }
+
+const renderCartItems = (data) => {
+let total = 0;
   for (const item of data) {
     const $tr = $('<tr>').attr({ id: `cart${item.id}` });
     const $th = $('<th>').addClass('text-center');
@@ -26,16 +37,18 @@ const renderCartItems = (data) => {
       })
       .addClass('btn btn-secondary btn-sm buttonDelItem')
       .text('delete item');
-    const $tdPrice = $('<td>').text(item.price).addClass('align-middle');
+    const $tdPrice = $('<td>').text(`$ ${item.price}`).addClass('align-middle');
     const $tdQty = $('<td>').text('1').addClass('align-middle');
-    const $tdTotal = $('<td>').text(item.price).addClass('align-middle');
+    const $tdTotal = $('<td>').text(`$ ${item.price}`).addClass('align-middle');
 
     $cardText.append($delButton);
     $card.append($img, $cardText);
     $th.append($card, $h5);
     $tr.append($th, $tdPrice, $tdQty, $tdTotal);
-    $('tbody').append($tr);
+    $('.listItem').append($tr);
+
   }
+  getTotal(); //creating total price
 
   // <============ Event listener for button Delete Item ==============>
   $('.buttonDelItem').on('click', (event) => {
@@ -49,6 +62,7 @@ const renderCartItems = (data) => {
     $.ajax(deleteItem)
     .done((data) => {
       $(`#cart${data.id}`).remove(); //removing DOM element (item from cart)
+      getTotal();
     })
     .fail((err) => {
       console.log('Error :' + err.responseText +
@@ -56,6 +70,54 @@ const renderCartItems = (data) => {
     });
   });
 }
+// <============ function Create subTotal and total order ==============>
+    const getTotal = () => {
+      let priceSubtotal = 0;
+      let qtySubtotal = 0;
+      let totalSubtotal = 0;
+
+      let priceTax = 0;
+      let totalTax = 0;
+
+      let qtyTotal = 0;
+      let totalTotal = 0;
+
+      $.getJSON('/token')
+        .done((isLoggedIn) => {
+          $.getJSON(`/cart/${isLoggedIn.id}`)
+            .done((data) => {
+
+              for (const item of data) {
+                qtySubtotal += 1;
+                qtyTotal += 1;
+
+                priceSubtotal += parseFloat(item.price);
+              }
+              totalSubtotal = priceSubtotal;
+              priceTax = priceSubtotal * 0.096; // tax applied 9.6%
+              totalTax = totalSubtotal * 0.096;
+              qtyTotal = qtySubtotal;
+              totalTotal = totalSubtotal + totalTax;
+              $('.subtotalPrice').text(`$ ${priceSubtotal.toFixed(2)}`);
+              $('.subtotalQty').text(`${qtySubtotal}`);
+              $('.subtotalTotal').text(`$ ${totalSubtotal.toFixed(2)}`);
+
+              $('.taxPrice').text(`$ ${priceTax.toFixed(2)}`);
+              $('.taxTotal').text(`$ ${totalTax.toFixed(2)}`);
+
+              $('.qtyTotal').text(`${qtyTotal}`);
+              $('.totalTotal').text(`$ ${totalTotal.toFixed(2)}`);
+            })
+            .fail(() => {
+              console.error('Problem to getting data from cart to total field');
+            });
+        })
+        .fail(() => {
+          console.error('Here is problem with token');
+        });
+    };
+
+// <============ function for eventListeners ==============>
   const attachListener = (data) => {
 
     $('#buttonContinue').on('click', (event) => {
