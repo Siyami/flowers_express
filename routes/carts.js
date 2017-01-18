@@ -20,12 +20,12 @@ const authorize = function(req, res, next) {
   });
 };
 
-router.get('/cart', (req, res, next) => {
-  console.log(req.claim);
+router.get('/cart/:id', (req, res, next) => {
   knex('carts')
-    .innerJoin('flowers', 'flowers.id', 'carts.flower_id')
-    .where('carts.customer_id', req.claim.customer_id)
-    .orderBy('id', 'ASC')
+    .from('flowers')
+    .innerJoin('carts', 'flowers.id', 'carts.flower_id')
+    .where('carts.customer_id', req.params.id)
+    .orderBy('carts.id', 'DESC')
     .then((rows) => {
       const cart = rows;
 
@@ -49,7 +49,6 @@ router.post('/cart', (req, res, next) => {
   }
 
   const insertFlower = { flower_id, price, customer_id };
-  console.log(insertFlower);
   knex('carts')
     .insert((insertFlower), '*')
     .then((flower) => {
@@ -67,15 +66,15 @@ router.delete('/cart/:id', (req, res, next) => {
     return next();
   }
   knex('carts')
-    .del('*')
     .where('id', id)
+    .del('*')
     .then((flowers) => {
       const deletedFlower = flowers[0];
 
       if (!deletedFlower) {
         return next();
       }
-      delete deletedFlower.id;
+
       res.send(deletedFlower);
     })
     .catch((err) => {

@@ -10,30 +10,31 @@
           .attr({
             href: `/details.html?id=${flower.id}`,
             'data-delay': '50',
-            'data-tooltip': flower.description
+            'data-tooltip': flower.name
           })
-          .tooltip();
+          .tooltip()
+          .addClass('indexPageCards');
         const $img = $('<img>')
           .addClass('card-img-top')
           .attr({ src: flower.picture_url_s, alt: flower.name });
         const $cardText = $('<div>')
           .addClass('card-block');
-        const $name = $('<h4>')
+        const $name = $('<h5>')
           .addClass('card-title text-center')
           .text(flower.name);
         const $price = $('<h5>')
-          .addClass('card-text text-center')
+          .addClass('card-text text-center nameOnCardIndex')
           .text(`Price: $${flower.price}`);
-        const $cardFooter = $('<div>')
-          .addClass('card-footer');
-        const $footerText = $('<small>')
-          .addClass('text-muted text-center')
-          .text('Click for details');
+        // const $cardFooter = $('<div>')
+        //   .addClass('card-footer');
+        // const $footerText = $('<small>')
+        //   .addClass('text-muted text-center')
+        //   .text('Click for details');
 
         $name.appendTo($cardText);
         $price.appendTo($cardText);
-        $footerText.appendTo($cardFooter);
-        $anchor.append($img, $cardText, $cardFooter);
+        // $footerText.appendTo($cardFooter);
+        $anchor.append($img, $cardText);
         $flowers.append($anchor);
       }
     })
