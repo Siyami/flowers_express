@@ -86,7 +86,88 @@
     // <============ Event listener for button Sign Up ==============>
     $('#buttonSignUp').on('click', (event) => {
       event.preventDefault();
+      $('#modalLogIn').modal('hide');
+      $('#signUpModal').modal();
 
+      $('#btnSignUp').on('click', (event) => {
+        const first_name = $('#firstNameSignUp').val().trim();
+        const last_name = $('#firstNameSignUp').val().trim();
+        const email = $('#emailSignUp').val().trim();
+        const password = $('#passwordSignUp').val().trim();
+        const address1 = $('#address1SignUp').val().trim();
+        const address2 = $('#address2SignUp').val().trim();
+        const city = $('#citySignUp').val().trim();
+        const state = $('#stateSignUp').val().trim();
+        const country = $('#countrySignUp').val().trim();
+        const phone = $('#phoneSignUp').val().trim();
+        const zipcode = $('#zipcodeSignUp').val().trim();
+
+        if (!first_name) {
+          // return Materialize.toast('First name must not be blank',
+          //   3000);
+        }
+        if (!last_name) {
+          // $('#lastNameSignUp').prop('indeterminate', true);
+        }
+        if (!email) {
+
+        }
+        if (email.indexOf('@') < 0) {
+
+        }
+        if (!password || password.length < 8) {
+
+        }
+        if (!address1) {
+
+        }
+        if (!address2) {
+
+        }
+        if (!city) {
+
+        }
+        if (!state) {
+
+        }
+        if (!country) {
+
+        }
+        if (!phone) {
+
+        }
+        if (!zipcode) {
+
+        }
+
+        const postCustomer = {
+          contentType: 'application/json',
+          data: JSON.stringify({
+            first_name,
+            last_name,
+            email,
+            password,
+            address1,
+            address2,
+            city,
+            state,
+            country,
+            phone,
+            zipcode
+          }),
+          type: 'POST',
+          url: '/customers'
+        };
+
+        $.ajax(postCustomer)
+          .done(() => {
+            window.location.href = '/index.html';
+          })
+          .fail((err) => {
+            console.log('Error :' + err.responseText +
+              '  Error status: ' + err.status);
+          });
+      })
     });
 
     // <============ Event listener for button Sign Out ==============>
@@ -117,6 +198,11 @@
           $(html).appendTo('main');
 
           attachListener(flower);
+        })
+      $.ajax('/signup.html')
+        .done((html) => {
+          $(html).appendTo('main');
+
         })
       detailsflower(flower);
     })

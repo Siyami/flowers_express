@@ -1,85 +1,85 @@
-<div class="modal fade bd-example-modal-lg" id="buttonSignUp" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div id="signUpModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Please fill all fields</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body" >
         <form>
           <div class="form-group row">
             <label for="example-text-input" class="col-2 col-form-label">First Name</label>
             <div class="col-10">
-              <input class="form-control" type="text" value="Artisanal kale" id="example-text-input">
+              <input class="form-control" type="text" id="firstNameSignUp">
             </div>
           </div>
           <div class="form-group row">
             <label for="lastName" class="col-2 col-form-label">Last Name</label>
             <div class="col-10">
-              <input class="form-control" type="text" value="Artisanal kale" id="lastName">
+              <input class="form-control" type="text" id="lastNameSignUp">
             </div>
           </div>
           <div class="form-group row">
             <label for="example-email-input" class="col-2 col-form-label">Email</label>
             <div class="col-10">
-              <input class="form-control" type="email" value="bootstrap@example.com" id="example-email-input">
+              <input class="form-control" type="email" id="emailSignUp">
             </div>
           </div>
           <div class="form-group row">
             <label for="example-password-input" class="col-2 col-form-label">Password</label>
             <div class="col-10">
-              <input class="form-control" type="password" value="hunter2" id="example-password-input">
+              <input class="form-control" type="password" id="passwordSignUp">
             </div>
           </div>
           <div class="form-group row">
             <label for="address1" class="col-2 col-form-label">Address1</label>
             <div class="col-10">
-              <input class="form-control" type="text" value="Artisanal kale" id="address1">
+              <input class="form-control" type="text" id="address1SignUp">
             </div>
           </div>
           <div class="form-group row">
             <label for="address2" class="col-2 col-form-label">Address2</label>
             <div class="col-10">
-              <input class="form-control" type="text" value="Artisanal kale" id="address2">
+              <input class="form-control" type="text" id="address2SignUp">
             </div>
           </div>
           <div class="form-group row">
             <label for="city" class="col-2 col-form-label">City</label>
             <div class="col-10">
-              <input class="form-control" type="text" value="Artisanal kale" id="city">
+              <input class="form-control" type="text" id="citySignUp">
             </div>
           </div>
           <div class="form-group row">
             <label for="state" class="col-2 col-form-label">State</label>
             <div class="col-10">
-              <input class="form-control" type="text" value="Artisanal kale" id="state">
+              <input class="form-control" type="text" id="stateSignUp">
             </div>
           </div>
           <div class="form-group row">
             <label for="country" class="col-2 col-form-label">Country</label>
             <div class="col-10">
-              <input class="form-control" type="text" value="Artisanal kale" id="country">
+              <input class="form-control" type="text" id="countrySignUp">
             </div>
           </div>
           <div class="form-group row">
-            <label for="example-tel-input" class="col-2 col-form-label">Telephone</label>
+            <label for="example-tel-input" class="col-2 col-form-label">Phone</label>
             <div class="col-10">
-              <input class="form-control" type="tel" value="1-(555)-555-5555" id="example-tel-input">
+              <input class="form-control" type="tel" id="phoneSignUp">
             </div>
           </div>
           <div class="form-group row">
             <label for="zipcode" class="col-2 col-form-label">Zipcode</label>
             <div class="col-10">
-              <input class="form-control" type="text" value="Artisanal kale" id="zipcode">
+              <input class="form-control" type="text" id="zipcodeSignUp">
             </div>
           </div>
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Send message</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button id="btnSignUp" type="button" class="btn btn-primary">Sign Up</button>
       </div>
     </div>
   </div>
