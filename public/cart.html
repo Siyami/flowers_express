@@ -19,6 +19,8 @@
     <!--script for using Bootstrap-->
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
     <script defer src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.js"></script>
+
     <!--script for main.js file-->
     <script defer src="/js/cart.js"></script>
 
@@ -56,7 +58,7 @@
       </nav>
     </header>
     <main>
-      <div class="container">
+      <div class="container" id="mainContainer">
         <div class="row justify-content-around buttonsOnCart">
           <button type="button" id="buttonContinue" class="btn btn-secondary col-3">CONTINUE SHOPPING</button>
           <button type="button" id="buttonCheckout" class="btn btn-primary col-3">CHECKOUT</button>
@@ -71,34 +73,43 @@
                 <th class="text-center">Total</th>
               </tr>
             </thead>
-            <tbody class="col-10 text-center">
+            <tbody class="col-10 text-center listItem">
+            </tbody>
+            <tbody class="col-10 text-center listTotal">
               <tr>
-                <th scope="row" class="text-right"> Tax :</th>
-                <td>$1000.00</td>
-                <td></td>
-                <td>$2000.00</td>
+                <th scope="row" class="text-right"> Subtotal :</th>
+                <td class="subtotalPrice"></td>
+                <td class="subtotalQty"></td>
+                <td class="subtotalTotal"></td>
               </tr>
               <tr>
-                <th scope="row" class="text-right"> Total :</th>
-                <td>$2000.00</td>
-                <td>1</td>
-                <td>$2000.00</td>
+                <th scope="row" class="text-right"> Tax 9.6%:</th>
+                <td class="taxPrice"></td>
+                <td> </td>
+                <td class="taxTotal"></td>
+              </tr>
+              <tr>
+                <th scope="row" class="text-right"> Total order :</th>
+                <td> </td>
+                <td class="qtyTotal"> </td>
+                <td class="totalTotal"></td>
               </tr>
             </tbody>
           </table>
         </div>
-        <form class="form-inline">
+        <form class="form-inline" id="formDelivery">
           <div class="form-group">
             <p class="form-control-static">CHOOSE DELIVERY DATE</p>
           </div>
           <div class="form-group mx-sm-3">
-            <input type="number" class="form-control" id="ZIP_del" placeholder="Enter ZIP">
+            <input type="number" class="form-control" required id="zipDelivery" placeholder="Enter ZIP">
           </div>
-          <button type="submit" class="btn btn-primary">Check delivery date</button>
+          <button type="button" class="btn btn-primary" id="btnZipDelivery">Check delivery date</button>
           <div class="form-group mx-sm-3">
-            <input type="date" class="form-control" id="date_del" placeholder="Choose date">
+              <select multiple class="form-control" id="delDatesForm">
+              </select>
           </div>
-          <button type="submit" class="btn btn-primary">Confirm delivery</button>
+          <button type="button" class="btn btn-primary btnDeliveryDate">Confirm delivery</button>
         </form>
       </div>
     </main>

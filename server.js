@@ -18,6 +18,7 @@ const carts = require('./routes/carts');
 const flowers = require('./routes/flowers');
 const recipients = require('./routes/recipients');
 const orders = require('./routes/orders');
+const apiRequest = require('./routes/apiRequest');
 
 
 const app = express();
@@ -36,6 +37,7 @@ app.use(flowers);
 app.use(recipients);
 app.use(orders);
 app.use(carts);
+app.use(apiRequest);
 
 
 app.use((_req, res) => {

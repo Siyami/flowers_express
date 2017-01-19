@@ -23,7 +23,7 @@ exports.up = function(knex) {
       .notNullable()
       .onDelete('CASCADE')
       .index();
-    table.string('orderIP').notNullable().defaultTo('0');
+    table.string('orderIP').notNullable().defaultTo('');
     table.timestamps(true, true);
   });
 };
