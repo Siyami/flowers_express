@@ -5,7 +5,7 @@
     <title>The best flowers</title>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/master.css">
+    <!-- <link rel="stylesheet" href="css/master.css"> -->
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <!--script for using jQuery-->
@@ -18,7 +18,7 @@
     <script defer src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 
     <!--script for main.js file-->
-    <script defer src="/js/main.js"></script>
+    <script defer src="js/cardMessage.js"></script>
   </head>
 <body>
   <header>
@@ -60,7 +60,6 @@
          <button type="button" class="btn btn-secondary col-3">CONTINUE SHOPPING</button>
          <button type="button" class="btn btn-primary col-3">CHECKOUT</button>
         </div>
-
         <div class="container">
           <div class="jumbotron">
             <div class="container">
@@ -74,7 +73,6 @@
                 </div>
               </div>
             </div>
-
             <div class="row">
               <hr class="my-4">
               <div class="col-2"></div>
@@ -82,23 +80,18 @@
                 <div class="form-group">
                   <textarea class="form-control" id="cardMessage" rows="10"></textarea>
                 </div>
-
               </div>
               <div class="col-2"></div>
-
             </div>
-
             <div class="row">
               <div class="col-md-6 offset-md-5">
-                <a class="btn btn-primary btn-lg" href="#" role="button">Continue</a>
-
+                <!-- <a class="btn btn-primary btn-lg" href="#" role="button">Continue</a> -->
+                <button id="btnSendCardMessage" type="button" class="btn btn-primary col-3">Continue</button>
               </div>
             </div>
             <p class="lead">
             </p>
-
           </div>
-
         </div>
       </form>
    </div>
