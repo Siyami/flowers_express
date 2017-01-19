@@ -99,7 +99,6 @@
 
         if (!first_name) {
           // alert('Please enter first name');
-          // signUp();
         }
         if (!last_name) {
 
@@ -180,8 +179,6 @@
             console.log('Error :' + err.responseText +
               '  Error status: ' + err.status);
           });
-
-
       })
     };
 
@@ -213,6 +210,7 @@
 
     });
   };
+
   // <============ Request for loading page ==============>
   $.getJSON(`/flowers/${flowerId}`)
     .done((flower) => {
@@ -225,8 +223,8 @@
       $.ajax('/signup.html')
         .done((html) => {
           $(html).appendTo('main');
-
         })
+
       detailsflower(flower);
     })
     .fail(() => {
