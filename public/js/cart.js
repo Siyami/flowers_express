@@ -1,76 +1,67 @@
 (function() {
   'use strict';
+  let deliveryDate = '';
+// <============ function Create cart items ==============>
+  const renderCartItems = (data) => {
+    for (const item of data) {
+      const $tr = $('<tr>').attr({ id: `cart${item.id}` });
+      const $th = $('<th>').addClass('text-center');
+      const $card = $('<div>')
+        .attr({ style: "width: 12rem;" })
+        .addClass('list-inline-item');
+      const $img = $('<img>')
+        .attr({
+          src: item.picture_url_s,
+          height: "40%",
+          width: "40%"
+        });
+      const $cardText = $('<div>');
+      const $h5 = $('<h5>')
+        .text(item.name)
+        .addClass('list-inline-item align-middle nameItemCart');
+      const $delButton = $('<button>')
+        .attr({
+          type: "button",
+          val: item.id
+        })
+        .addClass('btn btn-secondary btn-sm buttonDelItem')
+        .text('delete item');
+      const $tdPrice = $('<td>').text(`$ ${item.price}`).addClass('align-middle');
+      const $tdQty = $('<td>').text('1').addClass('align-middle');
+      const $tdTotal = $('<td>').text(`$ ${item.price}`).addClass('align-middle');
 
+      $cardText.append($delButton);
+      $card.append($img, $cardText);
+      $th.append($card, $h5);
+      $tr.append($th, $tdPrice, $tdQty, $tdTotal);
+      $('.listItem').append($tr);
 
+    }
+    getTotal(); //creating total price
 
-  const sumTotal = (priceItem) => {
-    subtotal += parseFloat(priceItem);
-    $('#subtotal').text(`$${subtotal.toFixed(2)}`);
-    tax = (subtotal * 9.6) / 100;
-    $('#tax').text(`$${tax.toFixed(2)}`);
-    total = subtotal + tax;
-    $('#total').text(`$${total.toFixed(2)}`);
-  }
+    // <============ Event listener for button Delete Item ==============>
+    $('.buttonDelItem').on('click', (event) => {
+      event.preventDefault();
+      const itemId = event.currentTarget.attributes['1'].value;
+      const deleteItem = {
+        contentType: 'application/json',
+        type: 'DELETE',
+        url: `/cart/${itemId}`
+      };
 
-const renderCartItems = (data) => {
-let total = 0;
-  for (const item of data) {
-    const $tr = $('<tr>').attr({ id: `cart${item.id}` });
-    const $th = $('<th>').addClass('text-center');
-    const $card = $('<div>')
-      .attr({ style: "width: 12rem;" })
-      .addClass('list-inline-item');
-    const $img = $('<img>')
-      .attr({
-        src: item.picture_url_s,
-        height: "40%",
-        width: "40%"
-      });
-    const $cardText = $('<div>');
-    const $h5 = $('<h5>')
-      .text(item.name)
-      .addClass('list-inline-item align-middle nameItemCart');
-    const $delButton = $('<button>')
-      .attr({
-        type: "button",
-        val: item.id
+      $.ajax(deleteItem)
+      .done((data) => {
+        $(`#cart${data.id}`).remove(); //removing DOM element (item from cart)
+        getTotal();
       })
-      .addClass('btn btn-secondary btn-sm buttonDelItem')
-      .text('delete item');
-    const $tdPrice = $('<td>').text(`$ ${item.price}`).addClass('align-middle');
-    const $tdQty = $('<td>').text('1').addClass('align-middle');
-    const $tdTotal = $('<td>').text(`$ ${item.price}`).addClass('align-middle');
-
-    $cardText.append($delButton);
-    $card.append($img, $cardText);
-    $th.append($card, $h5);
-    $tr.append($th, $tdPrice, $tdQty, $tdTotal);
-    $('.listItem').append($tr);
-
-  }
-  getTotal(); //creating total price
-
-  // <============ Event listener for button Delete Item ==============>
-  $('.buttonDelItem').on('click', (event) => {
-    event.preventDefault();
-    const itemId = event.currentTarget.attributes['1'].value;
-    const deleteItem = {
-      contentType: 'application/json',
-      type: 'DELETE',
-      url: `/cart/${itemId}`
-    };
-    $.ajax(deleteItem)
-    .done((data) => {
-      $(`#cart${data.id}`).remove(); //removing DOM element (item from cart)
-      getTotal();
-    })
-    .fail((err) => {
-      console.log('Error :' + err.responseText +
-      '  Error status: ' + err.status);
+      .fail((err) => {
+        console.log('Error :' + err.responseText +
+        '  Error status: ' + err.status);
+      });
     });
-  });
-}
+  };
 // <============ function Create subTotal and total order ==============>
+let totalPrice = 0;
     const getTotal = () => {
       let priceSubtotal = 0;
       let qtySubtotal = 0;
@@ -98,6 +89,9 @@ let total = 0;
               totalTax = totalSubtotal * 0.096;
               qtyTotal = qtySubtotal;
               totalTotal = totalSubtotal + totalTax;
+              totalPrice = totalTotal;
+              console.log(totalPrice);
+
               $('.subtotalPrice').text(`$ ${priceSubtotal.toFixed(2)}`);
               $('.subtotalQty').text(`${qtySubtotal}`);
               $('.subtotalTotal').text(`$ ${totalSubtotal.toFixed(2)}`);
@@ -125,24 +119,102 @@ let total = 0;
       window.location.href = '/index.html';
     });
 
-    // <============ Event listener for button "Checkout" ==============>
+// <============ Event listener for button "Checkout" ==============>
     $('#buttonCheckout').on('click', (event) => {
       event.preventDefault();
-      // <============ Check validation for sigh in or sign out ==============>
-      $.getJSON('/flowers')
-        .done((data) => {
-          if (!isLoggedIn) {
-            // <============ Calling modal for Sign In  ==============>
-            $('#modalLogIn').modal();
-            return console.error('ERRROOOOOORRRR!!!!!!');
-          }
-          postToCart(isLoggedIn.id)
+      let flower_id = [];
+      let flowerCode = [];
+      let flowerPrice = totalPrice;
+      const customer_id = data[0].customer_id;
+
+      for (const cartItem of data) {
+        flower_id.push(cartItem.flower_id);
+        flowerCode.push(cartItem.code);
+      }
+// <============ Posting cart items to Orders table ==============>
+      const reqPostOrder = {
+        contentType: 'application/json',
+        data: JSON.stringify({ flower_id, flowerCode, flowerPrice, deliveryDate, customer_id }),
+        dataType: 'json',
+        type: 'POST',
+        url: `/order`
+      }
+      $.ajax(reqPostOrder)
+        .done((dataOrder) => {
+          console.log(dataOrder);
         })
-        .fail(() => {
-          console.error('Here is problem with token');
+        .fail((err) => {
+          console.error('Error :' + err.responseText +
+          '  Error status: ' + err.status);
         });
+// <============ Cleanup cart ==============>
+      for (const cartItem of data) {
+        const deleteItem = {
+          contentType: 'application/json',
+          type: 'DELETE',
+          url: `/cart/${cartItem.id}`
+        };
+
+        $.ajax(deleteItem)
+        .done((data) => {
+        })
+        .fail((err) => {
+          console.log('Error :' + err.responseText +
+          '  Error status: ' + err.status);
+        });
+      }
+      // window.location.href = '/cardMessage.html';
     });
-    // <============ Event listener for button Sign Out ==============>
+  // <============ Redirect to Card message page ==============>
+
+// <============ Event listener for button "Check delivery date" ==============>
+  $('#delDatesForm').hide();
+  $('.btnDeliveryDate').hide();
+
+    $('#btnZipDelivery').on('click', (event) => {
+        event.preventDefault();
+        const zipCode = $('#zipDelivery').val().trim();
+        const reqDelDate = {
+          contentType: 'application/json',
+          data: JSON.stringify({ zip: zipCode }),
+          dataType: 'json',
+          type: 'POST',
+          url: '/apiRequest'
+        }
+        $.ajax(reqDelDate)
+          .done((data) => {
+            if (data.DATES) {
+              $('#delDatesForm').show();
+              $('.btnDeliveryDate').show();
+
+              for (const dateDay of data.DATES) {
+                let string = moment(dateDay, 'MM/DD/YYYY').format("DD-MMM-YYYY");
+                const $option = $('<option>').text(string);
+                $('#delDatesForm').append($option);
+              }
+            }
+            else {
+              alert(data.errors[0]);
+            }
+          })
+          .fail((err) => {
+          });
+      })
+// <============ Event listener for button "Confirm delivery date" ==============>
+    $('.btnDeliveryDate').on('click', (event) => {
+        event.preventDefault();
+        const dateChoosed = $('#delDatesForm').val();
+        deliveryDate = moment(dateChoosed, 'DD-MMM-YYYY').format("YYYY-MM-DD");
+
+        $('#formDelivery').hide();
+        const $h5 = $('<h5>')
+          .addClass('text-right red')
+          .css('color', 'red')
+          .text(`Delivery date choosen : ${dateChoosed}`);
+        $('#mainContainer').append($h5);
+    })
+
+// <============ Event listener for button Sign Out ==============>
     $('#singOutButton').on('click', (event) => {
       event.preventDefault();
 
@@ -161,6 +233,7 @@ let total = 0;
         });
     });
 }
+
 // <============ Request for loading page ==============>
   $.getJSON('/token')
     .done((isLoggedIn) => {
@@ -172,6 +245,7 @@ let total = 0;
 
       $.getJSON(`/cart/${isLoggedIn.id}`)
         .done((data) => {
+          getTotal()
           console.log(data);
           renderCartItems(data);
           attachListener(data);

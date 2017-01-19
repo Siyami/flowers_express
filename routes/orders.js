@@ -35,18 +35,24 @@ router.get('/order/:id', authorize, (req, res, next) => {
     });
 });
 
-router.post('/order', authorize, (req, res, next) => {
-  const { flower_id, flowerCode, flowerPrice, deliveryDate, customer_id } = req.body;
-  const customerIP = req.ip;
+router.post('/order', (req, res, next) => {
+  let { flower_id, flowerCode, flowerPrice, deliveryDate, customer_id } = req.body;
+  console.log('flower_id:' + flower_id);
+  console.log('customer_id' + customer_id);
+  flower_id = parseInt(flower_id);
+  customer_id = parseInt(customer_id);
+
+  const orderIP = req.ip;
+  console.log(flowerPrice);
 
   if (!deliveryDate || !deliveryDate.trim()) {
     return next(boom.create(400, 'You should choose delivery date'));
   }
-  if (!price || !price.trim()) {
+  if (!flowerPrice) {
     return next(boom.create(400, 'Price must be exist'));
   }
 
-  const insertCart = { flower_id, flowerCode, flowerPrice, deliveryDate, customer_id, customerIP };
+  const insertCart = { flower_id, flowerCode, flowerPrice, deliveryDate, customer_id, orderIP };
   knex('orders')
     .insert((insertCart), '*')
     .then((items) => {
