@@ -134,10 +134,21 @@
           type: 'POST',
           url: `/order`
         }
-        $.ajax(reqPostOrder)
-          .done((dataOrder) => {
-            console.log(dataOrder);
-            // window.location.href = '/cardMessage.html';
+        $.ajax(reqDelDate)
+          .done((data) => {
+            if (data.DATES) {
+              $('#delDatesForm').show();
+              $('.btnDeliveryDate').show();
+
+              for (const dateDay of data.DATES) {
+                let string = moment(dateDay, 'MM/DD/YYYY').format("DD-MMM-YYYY");
+                const $option = $('<option>').text(string);
+                $('#delDatesForm').append($option);
+              }
+            }
+            else {
+              alert(data.errors[0]);
+            }
           })
           .fail((err) => {
             console.error('Error :' + err.responseText +
