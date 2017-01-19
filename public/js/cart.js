@@ -1,6 +1,9 @@
 (function() {
   'use strict';
   let deliveryDate = '';
+  let cardMessageInfo = '';
+  let recipientInfo = {};
+
   // <============ function Create cart items ==============>
   const renderCartItems = (data) => {
     for (const item of data) {
@@ -129,6 +132,12 @@
     // <============ Event listener for button "Checkout" ==============>
     $('#buttonCheckout').on('click', (event) => {
       event.preventDefault();
+      if (deliveryDate === '') {
+        return alert(' Choose delivery date first');
+      }
+      window.location.href = '/cardMessage.html';
+
+      const postToOrderTable = () => {
       let flower_id = [];
       let flowerCode = [];
       let flowerPrice = totalPrice.toFixed(2);
@@ -173,8 +182,46 @@
             console.log('Error :' + err.responseText +
               '  Error status: ' + err.status);
           });
+        }
       }
     });
+
+    // <============ Event listener for button "Send card message" ==============>
+    $('#btnSendCardMessage').on('click', (event) =>{
+      event.preventDefault;
+      cardMessageInfo = $('#cardMessage').val();
+      window.location.href = '/address.html';
+    })
+
+    // <============ Event listener for button "Submit Delivery Address" ==============>
+    $('#btnSubmitDeliveryAddress').on('click', (event) =>{
+      event.preventDefault;
+
+      console.log($('#deliveryAddressForm').val());
+      // const reqPostRecipients = {
+      //   contentType: 'application/json',
+      //   data: JSON.stringify({
+      //
+      //   }),
+      //   dataType: 'json',
+      //   type: 'POST',
+      //   url: `/recipients`
+      // }
+      // $.ajax(reqPostOrder)
+      //   .done((dataOrder) => {
+      //     console.log(dataOrder);
+      //     // window.location.href = '/cardMessage.html';
+      //   })
+      //   .fail((err) => {
+      //     console.error('Error :' + err.responseText +
+      //       '  Error status: ' + err.status);
+      //   });
+
+
+    })
+
+
+
     // <============ Event listener for button "Check delivery date" ==============>
     $('#delDatesForm').hide();
     $('.btnDeliveryDate').hide();

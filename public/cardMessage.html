@@ -5,7 +5,7 @@
     <title>The best flowers</title>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-    <!-- <link rel="stylesheet" href="css/master.css"> -->
+    <link rel="stylesheet" href="css/main.css">
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <!--script for using jQuery-->
@@ -18,7 +18,7 @@
     <script defer src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 
     <!--script for main.js file-->
-    <script defer src="js/cardMessage.js"></script>
+    <script defer src="js/cart.js"></script>
   </head>
 <body>
   <header>
@@ -38,28 +38,14 @@
         <h1>Flowers delivery</h1>
       </div>
     </div>
-    <nav>
-      <div class="container">
-        <ul class="nav nav-tabs">
-          <li class="nav-item"><a class="nav-link active"href="#">Everyday</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Birthday</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Anniversary</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Love and Romance</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Get Well</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">New Baby</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Thank You</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Sympathy</a></li>
-        </ul>
-      </div>
-    </nav>
   </header>
   <main>
     <div class="container">
       <form>
-        <div class="row justify-content-around">
-         <button type="button" class="btn btn-secondary col-3">CONTINUE SHOPPING</button>
-         <button type="button" class="btn btn-primary col-3">CHECKOUT</button>
-        </div>
+        <!-- <div class="row justify-content-around buttonsOnCart">
+          <button type="button" id="buttonContinue" class="btn btn-secondary col-3">CONTINUE SHOPPING</button>
+          <button type="button" id="buttonCheckout" class="btn btn-primary col-3">CHECKOUT</button>
+        </div> -->
         <div class="container">
           <div class="jumbotron">
             <div class="container">
@@ -86,7 +72,7 @@
             <div class="row">
               <div class="col-md-6 offset-md-5">
                 <!-- <a class="btn btn-primary btn-lg" href="#" role="button">Continue</a> -->
-                <button id="btnSendCardMessage" type="button" class="btn btn-primary col-3">Continue</button>
+                <button id="btnSendCardMessage" type="button" class="btn btn-primary">Continue Checkout</button>
               </div>
             </div>
             <p class="lead">
