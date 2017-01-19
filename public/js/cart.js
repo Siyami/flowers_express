@@ -124,7 +124,8 @@ let totalPrice = 0;
       event.preventDefault();
       let flower_id = [];
       let flowerCode = [];
-      let flowerPrice = totalPrice;
+      let flowerPrice = totalPrice.toFixed(2);
+      const recipient_id = 1;
       const customer_id = data[0].customer_id;
 
       for (const cartItem of data) {
@@ -134,7 +135,7 @@ let totalPrice = 0;
 // <============ Posting cart items to Orders table ==============>
       const reqPostOrder = {
         contentType: 'application/json',
-        data: JSON.stringify({ flower_id, flowerCode, flowerPrice, deliveryDate, customer_id }),
+        data: JSON.stringify({ flower_id, flowerCode, flowerPrice, deliveryDate, customer_id, recipient_id }),
         dataType: 'json',
         type: 'POST',
         url: `/order`
@@ -142,6 +143,7 @@ let totalPrice = 0;
       $.ajax(reqPostOrder)
         .done((dataOrder) => {
           console.log(dataOrder);
+          // window.location.href = '/cardMessage.html';
         })
         .fail((err) => {
           console.error('Error :' + err.responseText +
@@ -163,10 +165,7 @@ let totalPrice = 0;
           '  Error status: ' + err.status);
         });
       }
-      // window.location.href = '/cardMessage.html';
     });
-  // <============ Redirect to Card message page ==============>
-
 // <============ Event listener for button "Check delivery date" ==============>
   $('#delDatesForm').hide();
   $('.btnDeliveryDate').hide();
@@ -194,7 +193,9 @@ let totalPrice = 0;
               }
             }
             else {
-              alert(data.errors[0]);
+              $.alert(data.errors[0], { type: 'danger' });
+
+              // alert(data.errors[0]);
             }
           })
           .fail((err) => {
