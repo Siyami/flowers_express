@@ -129,6 +129,11 @@
       event.preventDefault();
       window.location.href = '/index.html';
     });
+// <============ Event listener for button cart on NavBar ==============>
+    $('#navCartButton').on('click', (event) => {
+      event.preventDefault();
+      window.location.href = '/cart.html';
+    });
 
     // <============ function for posting to Orders Table ==============>
     function postToOrderTable(recipient_id) {

@@ -67,8 +67,13 @@
               .done((html) => {
                 $(html).appendTo('main');
               })
-
         });
+    // <============ Event listener for button cart on NavBar ==============>
+        $('#navCartButton').on('click', (event) => {
+          event.preventDefault();
+          window.location.href = '/cart.html';
+        });
+
     // <============ Event listener for button Log In(inside of modal) ==============>
     $('#buttonLogIn').on('click', (event) => {
       event.preventDefault();
@@ -130,6 +135,7 @@
       signUp();
     });
 
+  const signUp = function() {
     $('#btnSignUp').on('click', (event) => {
       const first_name = $('#firstNameSignUp').val().trim();
       const last_name = $('#firstNameSignUp').val().trim();
@@ -177,7 +183,7 @@
           $.ajax(postToken)
             .done(() => {
               $('#signUpModal').modal('hide');
-              // window.location.href = '/index.html';
+              window.location.href = '/index.html';
             })
             .fail((err) => {
               console.log('Error :' + err.responseText +
@@ -188,7 +194,8 @@
           console.log('Error :' + err.responseText +
             '  Error status: ' + err.status);
         });
-    })
+      })
+    }
   };
 $.getJSON('/flowers')
     .done((flowers) => {
@@ -206,7 +213,6 @@ $.getJSON('/flowers')
         .fail(() => {
           console.error('Here is problem with token');
         });
-      console.log(flowers);
     })
     .fail(() => {
       // Materialize.toast('Unable to retrieve books', 3000);

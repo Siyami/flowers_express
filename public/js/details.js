@@ -57,7 +57,20 @@
           console.error('Here is problem with token');
         });
     });
-    // <============ Event listener for button Log In ==============>
+// <============ Event listener for button cart on NavBar ==============>
+    $('#navCartButton').on('click', (event) => {
+      event.preventDefault();
+      window.location.href = '/cart.html';
+    });
+
+
+// <============ Event listener for button Log In ==============>
+    $('#signInButton').on('click', (event) => {
+      event.preventDefault();
+          $('#modalLogIn').modal();
+    });
+
+// <============ Event listener for button Log In(inside modal) ==============>
     $('#buttonLogIn').on('click', (event) => {
       event.preventDefault();
       const email = $('#emailLogIn').val().trim();
@@ -73,8 +86,8 @@
       };
       $.ajax(postReqToken)
         .done((data) => {
-          console.log(data);
-          postToCart(data.id);
+          $('#modalLogIn').modal('hide');
+          window.location.href = '/details.html';
         })
         .fail((err) => {
           return console.log('Error :' + err.responseText +
@@ -96,43 +109,6 @@
         const country = $('#countrySignUp').val().trim();
         const phone = $('#phoneSignUp').val().trim();
         const zipcode = $('#zipcodeSignUp').val().trim();
-
-        if (!first_name) {
-          // alert('Please enter first name');
-        }
-        if (!last_name) {
-
-        }
-        if (!email) {
-
-        }
-        if (email.indexOf('@') < 0) {
-
-        }
-        if (!password || password.length < 8) {
-
-        }
-        if (!address1) {
-
-        }
-        if (!address2) {
-
-        }
-        if (!city) {
-
-        }
-        if (!state) {
-
-        }
-        if (!country) {
-
-        }
-        if (!phone) {
-
-        }
-        if (!zipcode) {
-
-        }
 
         const postCustomer = {
           contentType: 'application/json',
@@ -168,7 +144,7 @@
             $.ajax(postToken)
               .done(() => {
                 $('#signUpModal').modal('hide');
-                // window.location.href = '/index.html';
+                window.location.href = '/details.html';
               })
               .fail((err) => {
                 console.log('Error :' + err.responseText +
@@ -202,6 +178,7 @@
       $.ajax(deleteToken)
         .done((data) => {
           console.log(data);
+          window.location.href = '/details.html';
         })
         .fail((err) => {
           console.log('Error :' + err.responseText +
@@ -225,7 +202,20 @@
           $(html).appendTo('main');
         })
 
-      detailsflower(flower);
+        detailsflower(flower);
+
+        $.getJSON('/token')
+          .done((isLoggedIn) => {
+            if (!isLoggedIn) {
+              $('#singOutButton').hide();
+              $('#navCartButton').hide();
+              return;
+            }
+            $('#signInButton').hide();
+          })
+          .fail(() => {
+            console.error('Here is problem with token');
+          });
     })
     .fail(() => {
       // bootstrap.toast('Unable to retrieve book', 3000);
