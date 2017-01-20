@@ -18,10 +18,17 @@
   },
   "devDependencies": {
     "dotenv": "^4.0.0",
+    "foreman": "^2.0.0",
     "nodemon": "^1.11.0"
+  },
+  "engines": {
+    "node": "7.4.0"
   },
   "scripts": {
     "knex": "knex",
+    "heroku-postbuild": "knex migrate:latest",
+    "nf": "nf start",
+    "nodemon": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
