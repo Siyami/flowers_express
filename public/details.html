@@ -6,7 +6,7 @@
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-    <!-- <link rel="stylesheet" href="/css/master.css"> -->
+    <link rel="stylesheet" href="/css/main.css">
 
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -25,34 +25,28 @@
   </head>
 <body>
   <header>
-    <nav class="navbar navbar-light bg-faded">
-      <form class="form-inline">
+    <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
       <a class="navbar-brand" href="index.html">
-        <img src="pics/111_small.png" width="30" height="30" class="d-inline-block align-top" alt="">FLOWERS DELIVERY</a>
-        <button class="btn btn-outline-success justify-content-end" type="button">SIGN IN</button>
-        <button class="btn btn-outline-success justify-content-end" type="button">CART</button>
-        <button id="singOutButton"class="btn btn-outline-success justify-content-end" type="button">SIGN OUT</button>
-      </form>
+        <img src="pics/111_small.png" width="30" height="30" class="d-inline-block align-top logoImg">FLOWERS DELIVERY
+      </a>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+          <button id="singOutButton" class="btn btn-outline-success my-2 my-sm-0 navButtons" type="button">LOG OUT</button>
+          <button id="signInButton" class="btn btn-outline-success my-2 my-sm-0 navButtons" type="button">LOG IN</button>
+          <button id="navCartButton" class="btn btn-outline-success my-2 my-sm-0 navButtons" type="button">SHOPPING CART</button>
+        </form>
+      </div>
     </nav>
     <div class="page-header">
       <div class="container">
         <h1>Flowers delivery</h1>
       </div>
     </div>
-    <nav>
-      <div class="container">
-        <ul class="nav nav-tabs center">
-          <li class="nav-link active"><a href="#">Everyday</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Birthday</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Anniversary</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Love and Romance</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Get Well</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">New Baby</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Thank You</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Sympathy</a></li>
-        </ul>
-      </div>
-    </nav>
   </header>
   <main>
     <div class="container">
@@ -63,18 +57,18 @@
 
         <div class="col">
 
-          <h3 id="name"></h3>
+          <h3 id="name" class="detailsElement"></h3>
 
-          <h4>Dimensions : <span id="dimensions"></span></h4>
+          <h4 class="detailsElement">Dimensions : <span id="dimensions"></span></h4>
 
-          <blockquote class="blockquote">
+          <blockquote class="blockquote detailsElement">
               <p id="description" class="mb-0"></p>
           </blockquote>
 
-          <h4>Price : <span id="price"></span></h4>
+          <h4 class="detailsElement" >Price : $<span id="price"></span></h4>
 
           <div class="col-md-6 offset-md-3">
-            <button id="addToCart" type="button" class="btn btn-primary btn-lg btn-block"> Add to cart</button>
+            <button id="addToCart" type="button" class="btn btn-primary btn-lg btn-block detailsElement"> Add to cart </button>
           </div>
         </div>
       </div>

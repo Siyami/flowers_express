@@ -22,17 +22,23 @@
   </head>
 <body>
   <header>
-    <div class="container">
-      <nav class="navbar navbar-light bg-faded">
-        <form class="form-inline">
-          <a class="navbar-brand" href="#">
-            <img src="pics/111_small.png" width="30" height="30" class="d-inline-block align-top" alt="">FLOWERS DELIVERY
-          </a>
-          <button class="btn btn-outline-success justify-content-end" type="button">SIGN IN</button>
-          <button class="btn btn-outline-success justify-content-end" type="button">CART</button>
-        </form>
+      <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">
+          <img src="pics/111_small.png" width="30" height="30" class="d-inline-block align-top logoImg">FLOWERS DELIVERY
+        </a>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+          </ul>
+          <form class="form-inline my-2 my-lg-0">
+            <button id="singOutButton" class="btn btn-outline-success my-2 my-sm-0 navButtons" type="button">LOG OUT</button>
+            <button id="signInButton" class="btn btn-outline-success my-2 my-sm-0 navButtons" type="button">LOG IN</button>
+            <button id="navCartButton" class="btn btn-outline-success my-2 my-sm-0 navButtons" type="button">SHOPPING CART</button>
+          </form>
+        </div>
       </nav>
-    </div>
     <div class="page-header">
       <div class="container">
         <h1>Flowers delivery</h1>
@@ -40,22 +46,37 @@
     </div>
     <nav>
       <div class="container">
-        <ul class="nav nav-tabs">
-          <li class="nav-item"><a class="nav-link active"href="#">Everyday</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Birthday</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Anniversary</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Love and Romance</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Get Well</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">New Baby</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Thank You</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Sympathy</a></li>
+        <ul class="nav nav-tabs text-center navCategories">
+          <li class="nav-item" val="everyday"><a class="nav-link active" href="#">Everyday</a></li>
+          <li class="nav-item" val="birthday"><a class="nav-link" href="#">Birthday</a></li>
+          <li class="nav-item" val="anniversary"><a class="nav-link" href="#">Anniversary</a></li>
+          <li class="nav-item" val="love"><a class="nav-link" href="#">Love and Romance</a></li>
+          <li class="nav-item" val="get_well"><a class="nav-link" href="#">Get Well</a></li>
+          <li class="nav-item" val="new_baby"><a class="nav-link" href="#">New Baby</a></li>
+          <li class="nav-item" val="thank_you"><a class="nav-link" href="#">Thank You</a></li>
+          <li class="nav-item" val="sympathy"><a class="nav-link" href="#">Sympathy</a></li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">By Category</a>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="#">Vase Arrangements</a>
+              <a class="dropdown-item" href="#">Centerpieces</a>
+              <a class="dropdown-item" href="#">Plants</a>
+              <a class="dropdown-item" href="#">Roses</a>
+              <a class="dropdown-item" href="#">One Sided Arrangements</a>
+              <a class="dropdown-item" href="#">For Funeral</a>
+              <a class="dropdown-item" href="#">Fruit Baskets</a>
+              <a class="dropdown-item" href="#">Balloons</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">Select all categories</a>
+            </div>
+          </li>
         </ul>
       </div>
     </nav>
   </header>
   <main>
     <div class="container">
-      <div id="flowers" class="card-deck text-center">
+      <div id="flowers" class="card-deck text-center col-md-10 offset-md-1">
       </div>
    </div>
   </main>

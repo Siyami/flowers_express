@@ -20,6 +20,15 @@ a, a:visited, a:hover, a:active {
 .nameOnCardIndex{
   font-size:
 }
+.navButtons {
+  margin: .6rem;
+}
+.logoImg {
+  margin: .2rem .4rem .2rem .2rem;
+}
+.detailsElement {
+  margin: 2rem 0;
+}
 .buttonDelItem{
       margin-top: 1rem;
 }
