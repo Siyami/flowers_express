@@ -129,7 +129,7 @@
       event.preventDefault();
       window.location.href = '/index.html';
     });
-// <============ Event listener for button cart on NavBar ==============>
+    // <============ Event listener for button cart on NavBar ==============>
     $('#navCartButton').on('click', (event) => {
       event.preventDefault();
       window.location.href = '/cart.html';
@@ -319,6 +319,12 @@
           });
       }
     })
+
+    // <============ Event listener for Order Completed Modal at the end ==============>
+    $('#btnSubmitDeliveryAddress').on('click', (event) => {
+      $('#orderCompleteModal').modal();
+      // window.location.href = '/index.html';
+    });
 
     // <============ Event listener for button Sign Out ==============>
     $('#singOutButton').on('click', (event) => {
