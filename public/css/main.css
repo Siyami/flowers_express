@@ -38,3 +38,9 @@ a, a:visited, a:hover, a:active {
 .buttonsOnCart {
   margin: 2rem;
 }
+#modalHeader{
+  padding: 1px;
+}
+#modalFooter.modal-footer {
+  padding: 2px;
+}
