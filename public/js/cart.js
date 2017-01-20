@@ -343,11 +343,11 @@
           .done((dataPatch) => {
             attachListener(dataPatch)
 
-            const infoDialog = bootbox.dialog({
-              message: `<p class="text-center">Delivery address successfully submited</p>`,
-              closeButton: true
-            });
-            infoDialog.modal('hide');
+            // const infoDialog = bootbox.dialog({
+            //   message: `<p class="text-center">Delivery address successfully submited</p>`,
+            //   closeButton: true
+            // });
+            // infoDialog.modal('hide');
           })
           .fail((err) => {
             const errDialog = bootbox.dialog({
@@ -391,8 +391,9 @@
             closeButton: true
           });
           errDialog.modal('hide');
-    });
-  }
+        });
+  });
+}
 
   // <============ Request for loading page ==============>
   $.getJSON('/token')
