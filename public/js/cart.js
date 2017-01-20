@@ -1,8 +1,9 @@
 (function() {
   'use strict';
-  let deliveryDate = '';
+
   let cardMessageInfo = '';
   let recipientInfo = {};
+  let recipient_id;
 
   // <============ function Create cart items ==============>
   const renderCartItems = (data) => {
@@ -129,31 +130,32 @@
       window.location.href = '/index.html';
     });
 
-    // <============ Event listener for button "Checkout" ==============>
-    $('#buttonCheckout').on('click', (event) => {
-      event.preventDefault();
-      if (deliveryDate === '') {
-        return alert(' Choose delivery date first');
-      }
-      window.location.href = '/cardMessage.html';
+    // <============ function for posting to Orders Table ==============>
+    function postToOrderTable(recipient_id) {
 
-      const postToOrderTable = () => {
+      console.log('data is: ' + data);
       let flower_id = [];
       let flowerCode = [];
       let flowerPrice = totalPrice.toFixed(2);
-      const recipient_id = 1;
+      let deliveryDate = [];
+
+      // const recipient_id = 1;
       const customer_id = data[0].customer_id;
 
       for (const cartItem of data) {
         flower_id.push(cartItem.flower_id);
         flowerCode.push(cartItem.code);
+        deliveryDate.push(data.deliveryDate);
       }
+
       // <============ Posting cart items to Orders table ==============>
+      console.log('delivery date is: ' + deliveryDate);
+      console.log('card message is: ' + cardMessageInfo);
       const reqPostOrder = {
         contentType: 'application/json',
         data: JSON.stringify({
           flower_id, flowerCode, flowerPrice, deliveryDate,
-          customer_id, recipient_id
+          customer_id, recipient_id, deliveryDate
         }),
         dataType: 'json',
         type: 'POST',
@@ -161,7 +163,7 @@
       }
       $.ajax(reqPostOrder)
         .done((dataOrder) => {
-          console.log(dataOrder);
+          console.log('dataOrder is: ' + dataOrder);
           // window.location.href = '/cardMessage.html';
         })
         .fail((err) => {
@@ -182,45 +184,65 @@
             console.log('Error :' + err.responseText +
               '  Error status: ' + err.status);
           });
-        }
       }
+    }
+    // <============ Event listener for button "Checkout" ==============>
+    $('#buttonCheckout').on('click', (event) => {
+      event.preventDefault();
+      if (data.deliveryDate === '') {
+        return alert(' Choose delivery date first');
+      }
+      window.location.href = '/cardMessage.html';
+      attachListener(data);
+
     });
 
     // <============ Event listener for button "Send card message" ==============>
-    $('#btnSendCardMessage').on('click', (event) =>{
+    $('#btnSendCardMessage').on('click', (event) => {
       event.preventDefault;
+
       cardMessageInfo = $('#cardMessage').val();
       window.location.href = '/address.html';
     })
 
     // <============ Event listener for button "Submit Delivery Address" ==============>
-    $('#btnSubmitDeliveryAddress').on('click', (event) =>{
+    $('#btnSubmitDeliveryAddress').on('click', (event) => {
       event.preventDefault;
 
-      console.log($('#deliveryAddressForm').val());
-      // const reqPostRecipients = {
-      //   contentType: 'application/json',
-      //   data: JSON.stringify({
-      //
-      //   }),
-      //   dataType: 'json',
-      //   type: 'POST',
-      //   url: `/recipients`
-      // }
-      // $.ajax(reqPostOrder)
-      //   .done((dataOrder) => {
-      //     console.log(dataOrder);
-      //     // window.location.href = '/cardMessage.html';
-      //   })
-      //   .fail((err) => {
-      //     console.error('Error :' + err.responseText +
-      //       '  Error status: ' + err.status);
-      //   });
+      let name = $('#name').val().trim();
+      let institution = $('#institution').val().trim();
+      let address1 = $('#address1').val().trim();
+      let address2 = $('#address2').val().trim();
+      let city = $('#city').val().trim();
+      let state = $('#state').val().trim();
+      let country = $('#country').val().trim();
+      let phone = $('#phone').val().trim();
+      let zipcode = $('#zipcode').val().trim();
+      const customer_id = data[0].customer_id;
 
-
+      const reqPostRecipients = {
+        contentType: 'application/json',
+        data: JSON.stringify({
+          customer_id, name, institution, address1, address2,
+          city, state,
+          country, phone, zipcode, cardMessageInfo
+        }),
+        dataType: 'json',
+        type: 'POST',
+        url: `/recipients`
+      }
+      $.ajax(reqPostRecipients)
+        .done((dataRecipient) => {
+          // console.log(dataRecipient);
+          recipient_id = dataRecipient.id;
+          // window.location.href = '/cart.html';
+          postToOrderTable(recipient_id);
+        })
+        .fail((err) => {
+          console.error('Error :' + err.responseText +
+            '  Error status: ' + err.status);
+        });
     })
-
-
 
     // <============ Event listener for button "Check delivery date" ==============>
     $('#delDatesForm').hide();
@@ -260,7 +282,8 @@
     $('.btnDeliveryDate').on('click', (event) => {
       event.preventDefault();
       const dateChoosed = $('#delDatesForm').val();
-      deliveryDate = moment(dateChoosed, 'DD-MMM-YYYY').format(
+
+      let deliveryDate = moment(dateChoosed, 'DD-MMM-YYYY').format(
         "YYYY-MM-DD");
 
       $('#formDelivery').hide();
@@ -269,6 +292,27 @@
         .css('color', 'red')
         .text(`Delivery date choosen : ${dateChoosed}`);
       $('#mainContainer').append($h5);
+
+      for (const cartItem of data) {
+        const patchDeliveryDate = {
+          data: JSON.stringify({
+            deliveryDate
+          }),
+          contentType: 'application/json',
+          type: 'PATCH',
+          url: `/cart/${cartItem.id}`
+        };
+        $.ajax(patchDeliveryDate)
+          .done((dataPatch) => {
+            console.log(dataPatch);
+            attachListener(dataPatch)
+              // window.location.href = '/index.html';
+          })
+          .fail((err) => {
+            console.log('Error text: ' + err.responseText +
+              '  Error status: ' + err.status);
+          });
+      }
     })
 
     // <============ Event listener for button Sign Out ==============>

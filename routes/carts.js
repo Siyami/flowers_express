@@ -48,11 +48,37 @@ router.post('/cart', (req, res, next) => {
     return next(boom.create(400, 'Price must be exist'));
   }
 
-  const insertFlower = { flower_id, price, customer_id };
+  const insertFlower = {
+    flower_id, price, customer_id
+  };
   knex('carts')
     .insert((insertFlower), '*')
     .then((flower) => {
       res.send(flower[0]);
+    })
+    .catch((err) => {
+      next(err);
+    });
+});
+
+router.patch('/cart/:id', (req, res, next) => {
+  knex('carts')
+    .where('id', req.params.id)
+
+  .first()
+    .then((cart) => {
+      if (!cart) {
+        return next();
+      }
+
+      return knex('carts')
+        .update({
+          deliveryDate: req.body.deliveryDate
+        }, '*')
+        .where('id', req.params.id);
+    })
+    .then((cart) => {
+      res.send(cart[0]);
     })
     .catch((err) => {
       next(err);

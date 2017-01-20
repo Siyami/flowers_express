@@ -32,6 +32,17 @@ router.get('/recipients/:id', (req, res, next) => {
 });
 
 router.post('/recipients', (req, res, next) => {
+  let {
+    customer_id, name, institution, address1, address2, city, state,
+    country, phone, zipcode
+  } = req.body;
+  customer_id = parseInt(customer_id);
+
+  const insertRecipient = {
+    customer_id, name, institution, address1, address2, city, state,
+    country, phone, zipcode
+  };
+
   knex('customers')
     .where('id', req.body.customer_id)
     .first()
@@ -45,18 +56,7 @@ router.post('/recipients', (req, res, next) => {
       }
 
       return knex('recipients')
-        .insert({
-          customer_id: req.body.customer_id,
-          name: req.body.name,
-          institution: req.body.institution,
-          address1: req.body.address1,
-          address2: req.body.address2,
-          city: req.body.city,
-          state: req.body.state,
-          country: req.body.country,
-          phone: req.body.phone,
-          zipcode: req.body.zipcode,
-        }, '*');
+        .insert(insertRecipient, '*');
     })
     .then((recipients) => {
       res.send(recipients[0]);

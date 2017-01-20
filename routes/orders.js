@@ -36,21 +36,27 @@ router.get('/order/:id', authorize, (req, res, next) => {
 });
 
 router.post('/order', (req, res, next) => {
-  let { flower_id, flowerCode, flowerPrice, deliveryDate, customer_id, recipient_id } = req.body;
+  let {
+    flower_id, flowerCode, flowerPrice, deliveryDate, customer_id,
+    recipient_id
+  } = req.body;
   flower_id = parseInt(flower_id);
   customer_id = parseInt(customer_id);
 
   const orderIP = req.ip;
   console.log(flowerPrice);
 
-  if (!deliveryDate || !deliveryDate.trim()) {
+  if (!deliveryDate) {
     return next(boom.create(400, 'You should choose delivery date'));
   }
   if (!flowerPrice) {
     return next(boom.create(400, 'Price must be exist'));
   }
 
-  const insertCart = { flower_id, flowerCode, flowerPrice, deliveryDate, customer_id, orderIP, recipient_id };
+  const insertCart = {
+    flower_id, flowerCode, flowerPrice, deliveryDate, customer_id,
+    orderIP, recipient_id
+  };
   knex('orders')
     .insert((insertCart), '*')
     .then((items) => {
@@ -68,15 +74,17 @@ router.patch('/order/:id', authorize, (req, res, next) => {
   knex('orders')
     .where('id', req.params.id)
     .first()
-    .then ((order) => {
+    .then((order) => {
       if (!order) {
         return next();
       }
       return knex('orders')
-        .update({ cardMessage, recipient }, '*')
+        .update({
+          cardMessage, recipient
+        }, '*')
         .where('id', req.params.id)
         .first();
-      })
+    })
     .then((orders) => {
       res.send(orders[0]);
     })
