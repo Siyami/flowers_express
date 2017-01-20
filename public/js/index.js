@@ -49,7 +49,11 @@
           renderFlowerCards(flowers);
         })
         .fail(() => {
-          console.error('Nothing to show on this category');
+          const errDialog = bootbox.dialog({
+            message: `<h5 class="text-center modalError"><strong> Sorry: Nothing to show on this category choose another one</strong></h5>`,
+            closeButton: true
+          });
+          errDialog.modal('hide');
         })
     })
 
@@ -104,10 +108,13 @@
           // $('[data-toggle="popover"]').popover();
         })
         .fail((err) => {
-          return console.log('Error :' + err.responseText +
-            '  Error status: ' + err.status);
-        });
-    });
+          const errDialog = bootbox.dialog({
+            message: `<h5 class="text-center modalError">Error ${err.status}: <strong>  ${err.responseText}</strong></h5>`,
+            closeButton: true
+          });
+          return errDialog.modal('hide');
+        })
+      });
 
     // <============ Event listener for button LOG OUT ==============>
     $('#singOutButton').on('click', (event) => {
@@ -123,9 +130,12 @@
         window.location.href = '/index.html';
       })
       .fail((err) => {
-        console.log('Error text: ' + err.responseText +
-        '  Error status: ' + err.status);
-      });
+        const errDialog = bootbox.dialog({
+          message: `<h5 class="text-center modalError">Error ${err.status}: <strong>  ${err.responseText}</strong></h5>`,
+          closeButton: true
+        });
+        return errDialog.modal('hide');
+      })
     });
 
     $('#buttonRegister').on('click', (event) => {
@@ -186,16 +196,23 @@
               window.location.href = '/index.html';
             })
             .fail((err) => {
-              console.log('Error :' + err.responseText +
-                '  Error status: ' + err.status);
-            });
-        })
+              const errDialog = bootbox.dialog({
+                message: `<h5 class="text-center modalError">Error ${err.status}: <strong>  ${err.responseText}</strong></h5>`,
+                closeButton: true
+              });
+              errDialog.modal('hide');
+            })
+          })
+
         .fail((err) => {
-          console.log('Error :' + err.responseText +
-            '  Error status: ' + err.status);
+          const errDialog = bootbox.dialog({
+            message: `<h5 class="text-center modalError">Error ${err.status}: <strong>  ${err.responseText}</strong></h5>`,
+            closeButton: true
+          });
+          errDialog.modal('hide');
         });
       })
-    }
+    };
   };
 $.getJSON('/flowers')
     .done((flowers) => {
@@ -215,6 +232,10 @@ $.getJSON('/flowers')
         });
     })
     .fail(() => {
-      // Materialize.toast('Unable to retrieve books', 3000);
+      const errDialog = bootbox.dialog({
+        message: `<h5 class="text-center modalError">Error ${err.status}: <strong>  ${err.responseText}</strong></h5>`,
+        closeButton: true
+      });
+      errDialog.modal('hide');
     });
 })();

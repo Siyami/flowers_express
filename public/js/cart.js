@@ -5,6 +5,7 @@
   let recipientInfo = {};
   let recipient_id;
 
+
   // <============ function Create cart items ==============>
   const renderCartItems = (data) => {
     for (const item of data) {
@@ -113,6 +114,11 @@
             $('.totalTotal').text(`$ ${totalTotal.toFixed(2)}`);
           })
           .fail(() => {
+              const errDialog = bootbox.dialog({
+                message: '<p class="text-center">Problem to getting data from cart to total field</p>',
+                closeButton: false
+            });
+            errDialog.modal('hide');
             console.error(
               'Problem to getting data from cart to total field');
           });
@@ -172,6 +178,12 @@
           // window.location.href = '/cardMessage.html';
         })
         .fail((err) => {
+          const errDialog = bootbox.dialog({
+            message: `<p class="text-center">Error # ${err.status}:  ${err.responseText}</p>`,
+            closeButton: false
+          });
+          errDialog.modal('hide');
+
           console.error('Error :' + err.responseText +
             '  Error status: ' + err.status);
         });
@@ -184,10 +196,16 @@
         };
 
         $.ajax(deleteItem)
-          .done((data) => {})
+          .done((data) => {
+
+          })
           .fail((err) => {
-            console.log('Error :' + err.responseText +
-              '  Error status: ' + err.status);
+            const errDialog = bootbox.dialog({
+              message: `<p class="text-center">Error # ${err.status}:  ${err.responseText}</p>`,
+              closeButton: false
+            });
+            errDialog.modal('hide');
+
           });
       }
     }
@@ -244,8 +262,11 @@
           postToOrderTable(recipient_id);
         })
         .fail((err) => {
-          console.error('Error :' + err.responseText +
-            '  Error status: ' + err.status);
+          const errDialog = bootbox.dialog({
+            message: `<p class="text-center">Error # ${err.status}:  ${err.responseText}</p>`,
+            closeButton: false
+          });
+          errDialog.modal('hide');
         });
     })
 
@@ -278,10 +299,21 @@
                 $('#delDatesForm').append($option);
               }
             } else {
-              alert(data.errors[0]);
+              const errDialog = bootbox.dialog({
+                message: `<h5 class="text-center modalError">Error ${err.status}: <strong>  ${err.responseText}</strong></h5>`,
+                closeButton: true
+              });
+              errDialog.modal('hide');
+
             }
           })
-          .fail((err) => {});
+          .fail((err) => {
+            const errDialog = bootbox.dialog({
+              message: `<h5 class="text-center modalError">Error ${err.status}: <strong>  ${err.responseText}</strong></h5>`,
+              closeButton: true
+            });
+            errDialog.modal('hide');
+          });
       })
       // <============ Event listener for button "Confirm delivery date" ==============>
     $('.btnDeliveryDate').on('click', (event) => {
@@ -309,13 +341,20 @@
         };
         $.ajax(patchDeliveryDate)
           .done((dataPatch) => {
-            console.log(dataPatch);
             attachListener(dataPatch)
-              // window.location.href = '/index.html';
+
+            const infoDialog = bootbox.dialog({
+              message: `<p class="text-center">Delivery address successfully submited</p>`,
+              closeButton: true
+            });
+            infoDialog.modal('hide');
           })
           .fail((err) => {
-            console.log('Error text: ' + err.responseText +
-              '  Error status: ' + err.status);
+            const errDialog = bootbox.dialog({
+              message: `<h5 class="text-center modalError">Error ${err.status}: <strong>  ${err.responseText}</strong></h5>`,
+              closeButton: true
+            });
+            errDialog.modal('hide');
           });
       }
     })
@@ -337,12 +376,21 @@
       };
       $.ajax(deleteToken)
         .done((data) => {
+          const infoDialog = bootbox.dialog({
+            message: `<h5 class="text-center">Thank you for being with us. See you next time</h5>`,
+            closeButton: false
+          });
+          infoDialog.modal('hide');
+
           window.location.href = '/index.html';
+
         })
         .fail((err) => {
-          console.log('Error text: ' + err.responseText +
-            '  Error status: ' + err.status);
-        });
+          const errDialog = bootbox.dialog({
+            message: `<h5 class="text-center modalError">Error ${err.status}: <strong>  ${err.responseText}</strong></h5>`,
+            closeButton: true
+          });
+          errDialog.modal('hide');
     });
   }
 
@@ -358,15 +406,22 @@
       $.getJSON(`/cart/${isLoggedIn.id}`)
         .done((data) => {
           getTotal()
-          console.log(data);
           renderCartItems(data);
           attachListener(data);
         })
-        .fail(() => {
-          // bootstrap.toast('Unable to retrieve book', 3000);
+        .fail((err) => {
+          const errDialog = bootbox.dialog({
+            message: `<h5 class="text-center modalError">Error ${err.status}: <strong>  ${err.responseText}</strong></h5>`,
+            closeButton: true
+          });
+          errDialog.modal('hide');
         });
     })
-    .fail(() => {
-      console.error('Here is problem with token');
+    .fail((err) => {
+      const errDialog = bootbox.dialog({
+        message: `<h5 class="text-center modalError">Error ${err.status}: <strong>  ${err.responseText}</strong></h5>`,
+        closeButton: true
+      });
+      errDialog.modal('hide');
     });
 })();

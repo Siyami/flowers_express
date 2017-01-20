@@ -48,9 +48,13 @@
           if (!isLoggedIn) {
             // <============ Calling modal for Sign In  ==============>
             $('#modalLogIn').modal();
-            return console.error('ERRROOOOOORRRR!!!!!!');
+            const infoDialog = bootbox.dialog({
+              message: `<h5 class="text-center modalError"><strong>Registred area you have to sign in</strong></h5>`,
+              closeButton: true
+            });
+
+            return infoDialog.modal('hide');;
           }
-          console.log(isLoggedIn.id);
           postToCart(isLoggedIn.id)
         })
         .fail(() => {
@@ -90,8 +94,11 @@
           window.location.href = '/details.html';
         })
         .fail((err) => {
-          return console.log('Error :' + err.responseText +
-            '  Error status: ' + err.status);
+          const errDialog = bootbox.dialog({
+            message: `<h5 class="text-center modalError">Error ${err.status}: <strong>  ${err.responseText}</strong></h5>`,
+            closeButton: true
+          });
+          errDialog.modal('hide');
         });
     });
 
@@ -147,13 +154,19 @@
                 window.location.href = '/details.html';
               })
               .fail((err) => {
-                console.log('Error :' + err.responseText +
-                  '  Error status: ' + err.status);
+                const errDialog = bootbox.dialog({
+                  message: `<h5 class="text-center modalError">Error ${err.status}: <strong>  ${err.responseText}</strong></h5>`,
+                  closeButton: true
+                });
+                errDialog.modal('hide');
               });
           })
           .fail((err) => {
-            console.log('Error :' + err.responseText +
-              '  Error status: ' + err.status);
+            const errDialog = bootbox.dialog({
+              message: `<h5 class="text-center modalError">Error ${err.status}: <strong>  ${err.responseText}</strong></h5>`,
+              closeButton: true
+            });
+            errDialog.modal('hide');
           });
       })
     };
@@ -181,8 +194,11 @@
           window.location.href = '/details.html';
         })
         .fail((err) => {
-          console.log('Error :' + err.responseText +
-            '  Error status: ' + err.status);
+          const errDialog = bootbox.dialog({
+            message: `<h5 class="text-center modalError">Error ${err.status}: <strong>  ${err.responseText}</strong></h5>`,
+            closeButton: true
+          });
+          errDialog.modal('hide');
         });
 
     });
@@ -218,6 +234,10 @@
           });
     })
     .fail(() => {
-      // bootstrap.toast('Unable to retrieve book', 3000);
+      const errDialog = bootbox.dialog({
+        message: `<h5 class="text-center modalError">Error ${err.status}: <strong>  ${err.responseText}</strong></h5>`,
+        closeButton: true
+      });
+      errDialog.modal('hide');
     });
 })();

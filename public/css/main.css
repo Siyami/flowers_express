@@ -44,3 +44,7 @@ a, a:visited, a:hover, a:active {
 #modalFooter.modal-footer {
   padding: 2px;
 }
+
+.modalError{
+  color: red;
+}

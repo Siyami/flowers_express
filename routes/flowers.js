@@ -41,22 +41,13 @@ router.get('/flowers/:id', (req, res, next) => {
 
 router.get('/flowers/categories/:val', (req, res, next) => {
   const catOfFlower = req.params.val;
-
-  knex('flowers')
+  console.log(catOfFlower);
+  knex('flowers').where(`${catOfFlower}`, true)
     .then((data) => {
       if (!data) {
         throw boom.create(404, 'Not Found');
       }
-      let resFlowers = [];
-      for (const flower of data) {
-        const category = 0;
-        // console.log(flower.(req.params.val));
-        if (flower.catOfFlower === 'true') {
-          resFlowers.push(flower);
-        }
-      }
-
-      res.send(resFlowers);
+      res.send(data);
     })
     .catch((err) => {
       next(err);
