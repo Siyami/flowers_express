@@ -1,7 +1,6 @@
-# Intro
-Project Name: Flowers Express
+# Project Name: Flowers Express
 
-#### Unordered
+####
 *Project description: Online flower delivery shop for a convenient way to buy flowers in the USA.
 
 *Technologies Used: Html5, CSS, jQuery, Bootstrap, JavaScript, DOM, Express, Knex, Postgresgl
