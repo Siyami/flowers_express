@@ -35,7 +35,33 @@
 
   const eventListeners = (flowers) => {
 
+// <============ Event listener for top nav bar categories ==============>
+$('.chooseCategory').on('click', 'a', (event) => {
+  event.preventDefault();
+
+  let category = $(event.currentTarget.attributes[1]).val();
+  console.log(category);
+
+  $.ajax(`/flowers/categories/nav/${category}`)
+    .done((flowers) =>{
+      console.log('flowers on client' + flowers);
+
+      $('#flowers').empty();
+      renderFlowerCards(flowers);
+    })
+    .fail(() => {
+      const errDialog = bootbox.dialog({
+        message: `<h5 class="text-center modalError"><strong> Sorry: Nothing to show on this category choose another one</strong></h5>`,
+        closeButton: true
+      });
+      errDialog.modal('hide');
+    })
+})
+
+
+// <============ Event listener for nav bar categories ==============>
     $('.navCategories').on('click', 'li', (event) => {
+      event.preventDefault();
 
       let category = $(event.currentTarget.attributes[1]).val();
 
@@ -98,14 +124,7 @@
           $('#modalLogIn').modal('hide');
           eventListeners(flowers);
           window.location.href = '/index.html';
-          // const $divAlert = $('<div>')
-          //   .addClass('alert alert-warning alert-dismissible fade show')
-          //   .attr({ role: "alert" })
-          //   .text(`Thank you for sign in ${data.firstName} ${data.lastName}`);
-          // const $strong = $('<strong>').text('Well done!')
-          // $divAlert.append($strong);
-          // $('main').append($divAlert);
-          // $('[data-toggle="popover"]').popover();
+
         })
         .fail((err) => {
           const errDialog = bootbox.dialog({

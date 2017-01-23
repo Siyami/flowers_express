@@ -212,12 +212,17 @@
     // <============ Event listener for button "Checkout" ==============>
     $('#buttonCheckout').on('click', (event) => {
       event.preventDefault();
-      if (data.deliveryDate === '') {
-        return alert(' Choose delivery date first');
-      }
-      window.location.href = '/cardMessage.html';
-      attachListener(data);
-
+      console.log('delivery date on button checkout: ' + data.deliveryDate);
+      $.ajax('/cart')
+        .done((data) => {
+          if (data[0].deliveryDate) {
+            window.location.href = '/cardMessage.html';
+            attachListener(data);
+          };
+        })
+        .fail((err) => {
+          console.error('Cannot to get data back from server');
+        });
     });
 
     // <============ Event listener for button "Send card message" ==============>
@@ -322,14 +327,14 @@
 
       let deliveryDate = moment(dateChoosed, 'DD-MMM-YYYY').format(
         "YYYY-MM-DD");
-
+      const showDeiveryDate = () => {
       $('#formDelivery').hide();
       const $h5 = $('<h5>')
         .addClass('text-right red')
         .css('color', 'red')
         .text(`Delivery date choosen : ${dateChoosed}`);
       $('#mainContainer').append($h5);
-
+    }
       for (const cartItem of data) {
         const patchDeliveryDate = {
           data: JSON.stringify({
@@ -341,13 +346,7 @@
         };
         $.ajax(patchDeliveryDate)
           .done((dataPatch) => {
-            attachListener(dataPatch)
-
-            // const infoDialog = bootbox.dialog({
-            //   message: `<p class="text-center">Delivery address successfully submited</p>`,
-            //   closeButton: true
-            // });
-            // infoDialog.modal('hide');
+            showDeiveryDate(dataPatch);
           })
           .fail((err) => {
             const errDialog = bootbox.dialog({
@@ -362,7 +361,7 @@
     // <============ Event listener for Order Completed Modal at the end ==============>
     $('#btnSubmitDeliveryAddress').on('click', (event) => {
       $('#orderCompleteModal').modal();
-      // window.location.href = '/index.html';
+      window.location.href = '/index.html';
     });
 
     // <============ Event listener for button Sign Out ==============>
@@ -378,7 +377,7 @@
         .done((data) => {
           const infoDialog = bootbox.dialog({
             message: `<h5 class="text-center">Thank you for being with us. See you next time</h5>`,
-            closeButton: false
+            closeButton: true
           });
           infoDialog.modal('hide');
 

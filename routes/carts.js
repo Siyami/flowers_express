@@ -20,6 +20,17 @@ const authorize = function(req, res, next) {
   });
 };
 
+router.get('/cart', (req, res, next) => {
+  knex('carts')
+    .orderBy('id', 'DESC')
+    .then((rows) => {
+      res.send(rows);
+    })
+    .catch((err) => {
+      next(err);
+    });
+});
+
 router.get('/cart/:id', (req, res, next) => {
   knex('carts')
     .from('flowers')
@@ -27,9 +38,7 @@ router.get('/cart/:id', (req, res, next) => {
     .where('carts.customer_id', req.params.id)
     .orderBy('carts.id', 'DESC')
     .then((rows) => {
-      const cart = rows;
-
-      res.send(cart);
+      res.send(rows);
     })
     .catch((err) => {
       next(err);

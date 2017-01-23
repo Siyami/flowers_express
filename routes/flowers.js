@@ -54,4 +54,20 @@ router.get('/flowers/categories/:val', (req, res, next) => {
     });
 });
 
+router.get('/flowers/categories/nav/:val', (req, res, next) => {
+  const catOfFlower = req.params.val;
+  console.log(catOfFlower);
+
+  knex('flowers')
+    .where('category', 'like', `${catOfFlower}%`)
+    .then((data) => {
+      if (!data) {
+        throw boom.create(404, 'Not Found');
+      }
+      res.send(data);
+    })
+    .catch((err) => {
+      next(err);
+    });
+});
 module.exports = router;

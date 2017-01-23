@@ -32,6 +32,19 @@
         </a>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Choose products by Category</a>
+              <div class="dropdown-menu chooseCategory">
+                <a class="dropdown-item" href="Vase Arrangements">Vase Arrangements</a>
+                <a class="dropdown-item" href="Centerpieces">Centerpieces</a>
+                <a class="dropdown-item" href="Plants">Plants</a>
+                <a class="dropdown-item" href="Roses">Roses</a>
+                <a class="dropdown-item" href="One Sided Arrangements">One Sided Arrangements</a>
+                <a class="dropdown-item" href="Fruit Baskets">Fruit Baskets</a>
+                <a class="dropdown-item" href="Balloons">Balloons</a>
+                <a class="dropdown-item" href="Funeral">For Funeral</a>
+              </div>
+            </li>
           </ul>
           <form class="form-inline my-2 my-lg-0">
             <button id="singOutButton" class="btn btn-outline-success my-2 my-sm-0 navButtons" type="button">LOG OUT</button>
@@ -47,7 +60,8 @@
     </div>
     <nav>
       <div class="container">
-        <ul class="nav nav-tabs text-center navCategories">
+        <div class="row">
+        <ul class="nav nav-tabs text-center navCategories col-md-10 offset-md-1">
           <li class="nav-item" val="everyday"><a class="nav-link active" href="#">Everyday</a></li>
           <li class="nav-item" val="birthday"><a class="nav-link" href="#">Birthday</a></li>
           <li class="nav-item" val="anniversary"><a class="nav-link" href="#">Anniversary</a></li>
@@ -56,7 +70,7 @@
           <li class="nav-item" val="new_baby"><a class="nav-link" href="#">New Baby</a></li>
           <li class="nav-item" val="thank_you"><a class="nav-link" href="#">Thank You</a></li>
           <li class="nav-item" val="sympathy"><a class="nav-link" href="#">Sympathy</a></li>
-          <li class="nav-item dropdown">
+          <!-- <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">By Category</a>
             <div class="dropdown-menu">
               <a class="dropdown-item" href="#">Vase Arrangements</a>
@@ -70,8 +84,9 @@
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="#">Select all categories</a>
             </div>
-          </li>
+          </li> -->
         </ul>
+        </div>
       </div>
     </nav>
   </header>
