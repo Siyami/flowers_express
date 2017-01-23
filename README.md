@@ -1,4 +1,4 @@
-# Project Name: Flowers Express
+# Intro Project Name: Flowers Express
 
 Project description: Online flower delivery shop for a convenient way to buy flowers in the USA.
 
