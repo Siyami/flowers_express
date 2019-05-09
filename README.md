@@ -2,7 +2,7 @@
 ####
 * Project description: Online flower delivery shop for a convenient way to buy flowers in the USA.
 
-* Technologies Used: Html5, CSS, jQuery, Bootstrap, JavaScript, DOM, Express, Knex, PostgreSQL
+* Technologies Used: Html5, CSS, jQuery, Bootstrap, JavaScript, Node, DOM, Express, Knex, PostgreSQL
 
 * APIs used: Floristone API
 
